@@ -71,14 +71,26 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      - name: Check whether GitHub Pages is enabled
+        id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh api "repos/${GITHUB_REPOSITORY}/pages" >/dev/null 2>&1; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::GitHub Pages is not enabled. A repository admin must enable Pages with GitHub Actions as the source."
+          fi
       - name: Configure GitHub Pages
+        if: steps.pages.outputs.enabled == 'true'
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
       - name: Upload Pages artifact
+        if: steps.pages.outputs.enabled == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
       - name: Deploy to GitHub Pages
+        if: steps.pages.outputs.enabled == 'true'
         id: deployment
         uses: actions/deploy-pages@v4

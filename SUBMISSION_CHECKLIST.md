@@ -20,7 +20,7 @@ Official page: https://hackindia.org/2026/ai-first-startup-hackathon-build-a-sta
 
 - [ ] Confirm all members have registered and team size is within 1–6.
 - [ ] Audit AI usage logs and truthfully verify the 80%+ AI execution requirement; add other actual tools/models/prompts used.
-- [ ] Configure Netlify deployment credentials or use another host, deploy, then verify the public URL in a fresh browser session.
+- [ ] Ask a repository admin to enable GitHub Pages with GitHub Actions as the source (or configure Netlify deployment credentials/use another host), deploy, then verify the public URL in a fresh browser session.
 - [ ] Record and upload the 3–5 minute demo video; submit its URL.
 - [ ] Upload the public GitHub repository URL, live app URL, video URL, pitch deck, and AI usage report through the official team submission flow.
 - [ ] Check code-freeze time and submission deadlines on the team page; submit before freeze.

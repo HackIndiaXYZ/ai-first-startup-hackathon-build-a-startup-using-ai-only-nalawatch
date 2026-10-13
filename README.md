@@ -45,11 +45,11 @@ Import the GitHub repository in Netlify with build command `npm run build` and p
 
 ## GitHub Pages deployment
 
-Pushes to `main` also build and publish the static app through GitHub Pages Actions. The workflow uses the repository subpath when building for Pages. After the `github-pages` environment deployment succeeds, the app URL is:
+Pushes to `main` build the static app and publish through GitHub Pages Actions once a repository admin has enabled Pages and selected GitHub Actions as the source. Until then, the Pages step is explicitly skipped. The workflow uses the repository subpath when building for Pages. After the `github-pages` environment deployment succeeds, the app URL is:
 
 https://hackindiaxyz.github.io/ai-first-startup-hackathon-build-a-startup-using-ai-only-nalawatch/
 
-The repository owner may need to permit GitHub Actions as the Pages source in repository settings. Confirm the deployment job succeeded before sharing the URL.
+The repository owner must enable Pages in repository settings and permit GitHub Actions as its source. Confirm the deployment job succeeded before sharing the URL.
 
 ## Hackathon submission materials
 
