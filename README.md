@@ -43,6 +43,14 @@ Open http://localhost:8080.
 
 Import the GitHub repository in Netlify with build command `npm run build` and publish directory `dist`. For deployment through GitHub Actions, configure `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID` repository secrets. A successful CI build alone does not mean the app is publicly deployed.
 
+## GitHub Pages deployment
+
+Pushes to `main` also build and publish the static app through GitHub Pages Actions. The workflow uses the repository subpath when building for Pages. After the `github-pages` environment deployment succeeds, the app URL is:
+
+https://hackindiaxyz.github.io/ai-first-startup-hackathon-build-a-startup-using-ai-only-nalawatch/
+
+The repository owner may need to permit GitHub Actions as the Pages source in repository settings. Confirm the deployment job succeeded before sharing the URL.
+
 ## Hackathon submission materials
 
 - `PITCH.md` — product story and staged pilot proposal
