@@ -27,9 +27,6 @@ export default function ContactForm() {
       </label>
       <div className="contact-actions">
         <button type="submit" className="primary-button">Request demo</button>
-        <a href="mailto:hello@nala.watch" className="secondary-button inline-link">
-          Email us
-        </a>
       </div>
     </form>
   );

@@ -1,34 +1,56 @@
 # NalaWatch
 
-NalaWatch is an AI-powered urban flood intelligence platform that predicts waterlogging, drain overflow, and flood hotspots before they become public safety emergencies.
+NalaWatch is a prototype concept for urban flood-risk decision support. It brings rainfall, drainage, and local exposure into a planning workflow for civic and emergency-response teams.
 
-## Overview
+## Prototype scope and limitations
 
-This project is a React + Vite landing page for NalaWatch, designed for a hackathon submission and startup pitch. It showcases the product story, workflow, pricing, accessibility, and a responsive startup demo dashboard for municipal and disaster-response use cases.
+The browser demo contains an interactive, rules-based scenario simulator. Its rainfall, drain-load, and blockage values are entered by the user; the score is illustrative and is not a validated flood forecast. It has no live weather feed, municipal sensor integration, calibrated hydrology model, or operational alerting. Do not use it for emergency decisions.
+
+The next validation step is a consented pilot with a city partner, documented data sources, historical event data, and field-verified sensor readings. Model performance claims should only be added after a reproducible evaluation.
 
 ## Run locally
 
+Requirements: Node.js 20 or newer and npm.
+
 ```bash
-npm install
-npm run dev -- --host 0.0.0.0
+npm ci
+npm run dev
 ```
 
-Then open http://localhost:5173.
+Open the local URL printed by Vite (normally http://localhost:5173).
 
-## Build for production
+## Validate and build
 
 ```bash
+npm run lint
+npm run test
 npm run build
+npm run preview
 ```
 
-## Deploy on Netlify
+## Optional Docker deployment
 
-1. Push this repository to GitHub.
-2. In Netlify, import the repo and set the build command to `npm run build` and publish directory to `dist`.
-3. Add `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID` as GitHub secrets if using the included GitHub Actions workflow.
+Docker is optional; the app does not require Linux, containers, or ROS. The included container serves the static production build with Nginx:
 
-## Supporting files
+```bash
+docker build -t nalawatch .
+docker run --rm -p 8080:8080 nalawatch
+```
 
-- `PITCH.md` — startup narrative and investor positioning
-- `AI_USAGE.md` — AI workflow summary for the hackathon judge brief
-- `pitch-deck/NalaWatch-investor-deck.pdf` — investor-facing deck summary
+Open http://localhost:8080.
+
+## Netlify deployment
+
+Import the GitHub repository in Netlify with build command `npm run build` and publish directory `dist`. For deployment through GitHub Actions, configure `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID` repository secrets. A successful CI build alone does not mean the app is publicly deployed.
+
+## Hackathon submission materials
+
+- `PITCH.md` — product story and staged pilot proposal
+- `AI_USAGE.md` — AI-assisted workflow and representative prompt log
+- `DEMO_SCRIPT.md` — timed 3–5 minute demo/video outline
+- `SUBMISSION_CHECKLIST.md` — deliverables and remaining external steps
+- `pitch-deck/NalaWatch-investor-deck.pdf` — concise pitch deck
+
+## Data and safety
+
+The prototype avoids collecting personal data. Do not enter sensitive information in the contact form. The simulator is for demonstration only; official weather warnings and qualified local response teams take precedence.

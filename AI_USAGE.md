@@ -1,21 +1,36 @@
 # AI usage report
 
-## Overview
+## AI-first workflow
 
-NalaWatch was designed as an AI-first product, with AI supporting ideation, product storytelling, funnel design, UI iteration, and hypothesis validation throughout the build process.
+AI was used as a primary builder for startup framing, product copy, interface structure, React implementation, styling, test creation, documentation, and iterative debugging. The human role is to review outputs, verify claims and behavior, run tests, and make final submission and safety decisions.
 
-## AI workflow used
+The project uses AI assistance during development; the deployed prototype does **not** call an AI model. Its scenario score is a deterministic weighted heuristic. Do not describe that score as machine learning or validated prediction.
 
-- Strategic framing and positioning for an urban flood intelligence startup
-- Product narrative and pitch refinement for a municipal resilience use case
-- UI structure, content hierarchy, and landing-page iteration
-- Faster prototype evaluation using component-based design and dashboard mockups
-- Test and build validation for a polished startup landing page
+## Tool disclosure
 
-## Estimated AI contribution
+- AI assistant in VS Code using Copilot SDK: ideation, code and copy generation, implementation iteration, test/debug support, and documentation.
+- React, Vite, Vitest, ESLint, and Git: application and validation tooling.
+- GitHub Actions/Linux runner: automated lint, tests, and production build.
+- Optional Docker/Nginx: reproducible static container packaging.
 
-Approximately 80%+ of the product crafting, iteration cycles, and presentation work was accelerated through AI-assisted workflows. This includes concept generation, copy drafting, design feedback, and technical validation.
+Before submission, the team should add any other AI tools actually used, exact model names if known, dates, and links/evidence from its own usage logs. This report does not claim that ROS, external AI services, or model APIs were used.
 
-## Submission note
+## Prompt excerpts from the conversation
 
-This product is intentionally shaped around the real hackathon problem: predictive urban flood intelligence for Indian cities. The result is a credible startup concept built rapidly using AI-first workflows.
+These are selected verbatim user-prompt excerpts available in the conversation history, not a complete prompt export. Add the team’s remaining prompts and AI-tool records before submission if required by the organizers.
+
+1. “Build this project”
+2. “Improve that!”
+3. “All A, B, C, D”
+4. “Do that all”
+5. “So what left do and See acording to rule and reguletion if any other software can be use in that project like linux, docker, container, ros and all other all software all over world!”
+
+## Work areas accelerated with AI
+
+- Problem framing, user-facing narrative, and product workflow
+- React component and responsive interface implementation
+- Heuristic function and boundary-case tests
+- Submission docs, pitch narrative, and demo outline
+- Build/test troubleshooting and repository updates
+
+The event requires at least 80% AI-driven execution. The team should calculate and attest to its actual contribution using its AI usage logs and work history rather than treating an unsupported estimate in this report as proof.
