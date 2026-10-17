@@ -6,5 +6,11 @@ export default defineConfig({
     globals: true,
     setupFiles: ['./src/setupTests.js'],
     testTimeout: 30000,
+    pool: 'threads',
+    poolOptions: {
+      threads: {
+        singleThread: true,
+      },
+    },
   },
 });

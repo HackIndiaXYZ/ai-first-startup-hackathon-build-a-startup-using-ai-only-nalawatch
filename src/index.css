@@ -1071,6 +1071,337 @@ section {
   font-size: 0.82rem;
 }
 
+.scenario-toolbar,
+.scenario-presets,
+.panel-heading,
+.ward-detail-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.scenario-toolbar {
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.scenario-presets {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.preset-button,
+.export-button {
+  min-height: 42px;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid rgba(151, 172, 219, 0.2);
+  border-radius: 11px;
+  background: rgba(17, 29, 48, 0.88);
+  color: #eaf1ff;
+}
+
+.preset-button:hover,
+.export-button:hover,
+.ward-tile:hover {
+  border-color: rgba(112, 215, 218, 0.7);
+  background-color: rgba(24, 47, 65, 0.95);
+}
+
+.simulation-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.summary-card {
+  display: grid;
+  gap: 4px;
+  padding: 16px;
+  border: 1px solid rgba(151, 172, 219, 0.14);
+  border-radius: 16px;
+  background: rgba(17, 29, 48, 0.72);
+}
+
+.summary-card > span,
+.summary-card > small {
+  color: #9bb5d8;
+  font-size: 0.78rem;
+}
+
+.summary-card > strong {
+  font-size: 1.55rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.summary-card strong small {
+  color: #9bb5d8;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.ward-board,
+.ward-detail {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid rgba(151, 172, 219, 0.14);
+  border-radius: 18px;
+  background: rgba(17, 29, 48, 0.72);
+}
+
+.panel-heading {
+  margin-bottom: 14px;
+}
+
+.panel-heading h4,
+.ward-detail-heading h4 {
+  margin: 5px 0 0;
+  font-size: 1.2rem;
+}
+
+.map-legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #9bb5d8;
+  font-size: 0.75rem;
+}
+
+.map-legend i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff867d;
+  box-shadow: 0 0 12px rgba(255, 134, 125, 0.5);
+}
+
+.ward-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ward-tile {
+  display: grid;
+  justify-items: start;
+  gap: 4px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(151, 172, 219, 0.16);
+  border-left: 3px solid #65d8b5;
+  border-radius: 13px;
+  background: rgba(8, 17, 29, 0.78);
+  color: #edf2ff;
+  text-align: left;
+}
+
+.ward-tile.selected {
+  outline: 2px solid #83d5ff;
+  outline-offset: 1px;
+}
+
+.ward-tile.risk-moderate { border-left-color: #ffc857; }
+.ward-tile.risk-high { border-left-color: #ff9d62; }
+.ward-tile.risk-severe { border-left-color: #ff6b81; }
+
+.ward-id,
+.ward-level {
+  color: #9bb5d8;
+  font-size: 0.68rem;
+}
+
+.ward-tile > strong {
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ward-score {
+  font-size: 1.3rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.ward-score small {
+  color: #9bb5d8;
+  font-size: 0.68rem;
+  font-weight: 500;
+}
+
+.map-caption,
+.scenario-chart > p {
+  margin: 12px 0 0;
+  color: #9bb5d8;
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+
+.ward-detail {
+  margin-top: 18px;
+}
+
+.ward-detail-heading {
+  margin-bottom: 18px;
+}
+
+.ward-detail-heading h4 span {
+  color: #9bb5d8;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.ward-detail-score {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.ward-detail-score strong {
+  font-size: 2rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.ward-detail-score span {
+  color: #9bb5d8;
+  font-size: 0.8rem;
+}
+
+.risk-moderate .ward-detail-score strong { color: #ffc857; }
+.risk-high .ward-detail-score strong { color: #ff9d62; }
+.risk-severe .ward-detail-score strong { color: #ff7b86; }
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.scenario-chart {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid rgba(151, 172, 219, 0.12);
+  border-radius: 14px;
+  background: rgba(8, 17, 29, 0.62);
+}
+
+.scenario-chart h5,
+.planning-checks h5 {
+  margin: 0;
+  color: #eaf1ff;
+  font-size: 0.9rem;
+}
+
+.chart-bars {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  align-items: end;
+  gap: 8px;
+  height: 140px;
+  margin-top: 14px;
+  padding: 8px 4px 0;
+  border-bottom: 1px solid rgba(151, 172, 219, 0.2);
+}
+
+.chart-column {
+  display: grid;
+  grid-template-rows: 18px 1fr 18px;
+  justify-items: center;
+  align-items: end;
+  gap: 4px;
+  height: 100%;
+  min-width: 0;
+}
+
+.chart-value,
+.chart-axis {
+  color: #9bb5d8;
+  font-size: 0.65rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-bar {
+  align-self: end;
+  width: min(100%, 28px);
+  min-height: 3px;
+  border-radius: 6px 6px 2px 2px;
+  background: linear-gradient(180deg, #55d6ff, #39bba9);
+  transition: height 180ms ease;
+}
+
+.ponding-bars .chart-bar {
+  background: linear-gradient(180deg, #ffc857, #ff797d);
+}
+
+.chart-axis {
+  align-self: center;
+}
+
+.sensitivity-callout {
+  display: grid;
+  gap: 4px;
+  margin-top: 14px;
+  padding: 13px 15px;
+  border: 1px solid rgba(255, 200, 87, 0.25);
+  border-radius: 13px;
+  background: rgba(255, 200, 87, 0.06);
+}
+
+.sensitivity-callout strong {
+  color: #ffdb8a;
+}
+
+.sensitivity-callout span {
+  color: #b9c9e4;
+  font-size: 0.76rem;
+}
+
+.planning-checks {
+  margin-top: 16px;
+}
+
+.planning-checks ul {
+  margin: 9px 0 0;
+  padding-left: 1.15rem;
+  color: #c7d7f5;
+  font-size: 0.84rem;
+}
+
+.planning-checks li + li {
+  margin-top: 5px;
+}
+
+.model-method {
+  margin-top: 16px;
+  padding: 13px 15px;
+  border: 1px solid rgba(151, 172, 219, 0.14);
+  border-radius: 13px;
+  background: rgba(8, 17, 29, 0.55);
+  color: #c7d7f5;
+  font-size: 0.82rem;
+}
+
+.model-method summary {
+  color: #dfeaff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.model-method p {
+  margin: 10px 0 0;
+  line-height: 1.65;
+}
+
+.preset-button:focus-visible,
+.export-button:focus-visible,
+.ward-tile:focus-visible,
+.model-method summary:focus-visible {
+  outline: 2px solid #83d5ff;
+  outline-offset: 3px;
+}
+
 @media (max-width: 900px) {
   .hero,
   .mission,
@@ -1090,6 +1421,10 @@ section {
   }
 
   .simulator-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .simulation-summary {
     grid-template-columns: 1fr;
   }
 
@@ -1123,6 +1458,19 @@ section {
 
   .data-badge {
     white-space: normal;
+  }
+
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ward-detail-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .export-button {
+    width: 100%;
   }
 
   .hero-visual {

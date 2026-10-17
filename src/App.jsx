@@ -11,32 +11,32 @@ const metrics = [
 
 const featureCards = [
   {
-    title: 'AI rainfall + drainage forecast',
-    description: 'Combines live weather, hydrology, drainage maps, and historical flood patterns to predict where waterlogging will hit next.',
+    title: 'Storm scenario explorer',
+    description: 'Adjust an assumed three-hour rainfall total, ground saturation, blockage, and available drain capacity to explore a six-hour scenario.',
     accent: 'graph',
   },
   {
-    title: 'Real-time sensor intelligence',
-    description: 'Tracks water levels, overflow risk, and network strain across critical drains and flood-prone corridors.',
+    title: 'Neighbourhood comparison',
+    description: 'Compare six fictional neighbourhoods with distinct low-point, surface-cover, drainage, and exposure assumptions.',
     accent: 'shield',
   },
   {
-    title: 'Civic early warning system',
-    description: 'Alerts city officials, emergency teams, and residents before drains exceed safe thresholds or roads become impassable.',
+    title: 'Explainable scenario outputs',
+    description: 'Inspect the assumed rainfall profile, an hourly ponding proxy, priority index, and a sensitivity check—not a probability forecast.',
     accent: 'signal',
   },
   {
-    title: 'Operational response planner',
-    description: 'Prioritizes actions, dispatches crews, and helps traffic and rescue teams prepare for the next high-risk hour.',
+    title: 'Preparedness discussion prompts',
+    description: 'Use transparent prompts to discuss field verification and data needs. The prototype does not dispatch crews or send alerts.',
     accent: 'spark',
   },
 ];
 
 const workflow = [
-  'Ingest weather, drainage, and sensor data from city networks and historical flood patterns.',
-  'Correlate rainfall intensity, blockage risk, and capacity constraints through explainable AI models.',
-  'Identify priority zones and issue early alerts to civic teams, responders, and residents.',
-  'Coordinate action plans before roads flood, drains overflow, and public health risk spikes.',
+  'Choose a synthetic rainfall, ground-saturation, blockage, and drainage-capacity scenario.',
+  'Compare six fictional neighbourhoods with different surface, low-point, drainage, and exposure assumptions.',
+  'Inspect the simplified hourly ponding proxy and how its inputs shape the scenario index.',
+  'Use sensitivity ranges and planning prompts to identify what real field data a future pilot would need.',
 ];
 
 const useCases = [
@@ -47,12 +47,12 @@ const useCases = [
 ];
 
 const deckSlides = [
-  { title: 'Problem', text: 'Indian cities lose billions every monsoon because drainage capacity, rainfall, and response plans are not connected in real time.' },
-  { title: 'Solution', text: 'NalaWatch combines weather, drainage, geography, and sensor intelligence to predict flood hotspots before they become disasters.' },
-  { title: 'Product', text: 'Real-time city risk dashboard, AI-based alerting, operational recommendations, and resident warning workflows.' },
-  { title: 'Market', text: 'Municipal infrastructure, flood-response agencies, and urban resilience programs all need predictive flood intelligence at city scale.' },
-  { title: 'Model', text: 'Pilot contracts with cities, recurring software subscriptions, and B2G partnerships with disaster management agencies.' },
-  { title: 'Ask', text: 'Pilot funding, incubation support, and a live city deployment partnership to prove the impact at scale.' },
+  { title: 'Problem', text: 'Urban flood preparedness depends on connecting rainfall, drainage, exposed places, and response planning. Local data and validated models are essential.' },
+  { title: 'Concept', text: 'NalaWatch explores how transparent, location-aware scenarios could help civic teams ask better preparedness questions.' },
+  { title: 'Prototype today', text: 'A browser-based, synthetic six-hour scenario sandbox compares six fictional neighbourhoods and explains its assumptions.' },
+  { title: 'Evidence needed', text: 'A responsible pilot requires a city partner, permitted drainage and rainfall data, field verification, and evaluation against historical events.' },
+  { title: 'Potential path', text: 'If a partner validates utility and performance, explore a municipal pilot and sustainable public-sector deployment model.' },
+  { title: 'Ask', text: 'Seeking mentorship and a consented pilot partner to test data availability, workflows, and validation requirements—not operational use.' },
 ];
 
 function PitchDeck() {
@@ -96,11 +96,11 @@ function App() {
       <main id="main-content">
         <section className="hero">
           <div className="hero-copy">
-            <div className="eyebrow">Real-time urban resilience</div>
+            <div className="eyebrow">Urban flood preparedness · prototype</div>
             <h1>Predict floods before they hit the city.</h1>
             <p>
-              NalaWatch is a flood-intelligence concept for helping civic teams connect rainfall, drainage, and local
-              exposure information so they can plan earlier and respond with better context.
+              NalaWatch is an interactive research-informed scenario sandbox. It helps teams explore how assumed rainfall,
+              drainage, ground saturation, and local exposure could shape preparedness discussions.
             </p>
 
             <div className="hero-actions">
@@ -109,7 +109,7 @@ function App() {
             </div>
 
             <div className="mini-trust">
-              <span>Prototype demonstration. No live sensor network or validated forecasting model is connected.</span>
+              <span>Prototype only. Synthetic inputs and a toy model; no live feeds, verified city data, or validated forecasts.</span>
             </div>
 
             <div className="hero-list">
@@ -161,7 +161,7 @@ function App() {
             </div>
 
             <div className="floating-card">
-              <span className="pill danger">Prototype</span>
+              <span className="pill danger">Synthetic scenario</span>
               <strong>Change the inputs to explore a scenario</strong>
               <small>Not a real-time flood warning</small>
             </div>
@@ -215,22 +215,22 @@ function App() {
             <span className="eyebrow">Mission</span>
             <h2>Protect lives, roads, and livelihoods before the monsoon peaks.</h2>
             <p>
-              Every year, flooding and drain overflow cause preventable disruption across Indian cities. NalaWatch helps
-              governments and responders move from reactive repair to proactive risk detection.
+              Urban flooding is shaped by rainfall, ground conditions, drainage capacity, and exposure. NalaWatch explores
+              how those factors might be discussed together before a validated operational system exists.
             </p>
             <p>
-              We combine geospatial intelligence with AI forecasting to highlight where water will pool, which drains are at
-              risk, and what actions can reduce damage before the next heavy downpour.
+              Today’s demo uses fictional neighbourhoods and an intentionally simple bucket model. A real deployment would
+              need permitted local data, calibrated hydrology, field validation, uncertainty evaluation, and human oversight.
             </p>
           </div>
 
           <div className="mission-card">
-            <div className="mission-pill">AI forecast</div>
+            <div className="mission-pill">Research-informed prototype</div>
             <ul>
-              <li>Monsoon weather risk</li>
-              <li>Drainage capacity stress</li>
-              <li>Waterlogging hotspots</li>
-              <li>Emergency intervention route</li>
+              <li>Synthetic rainfall scenarios</li>
+              <li>Assumed drainage constraints</li>
+              <li>Illustrative neighbourhood comparison</li>
+              <li>Future pilot data requirements</li>
             </ul>
           </div>
         </section>

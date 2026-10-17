@@ -11,16 +11,25 @@ describe('App', () => {
     expect(screen.getByRole('link', { name: /try the scenario/i })).toHaveAttribute('href', '#simulator');
   });
 
-  it('renders the interactive scenario simulator and discloses its limits', () => {
+  it('renders the research-informed scenario simulator and discloses its limits', () => {
     render(<App />);
 
-    expect(screen.getByRole('heading', { name: /explore a ward risk scenario/i })).toBeInTheDocument();
-    expect(screen.getByText(/not an operational alert/i)).toBeInTheDocument();
-    expect(screen.getByText(/not calibrated or validated/i)).toBeInTheDocument();
-    expect(screen.getByText(/Elevated scenario risk/i)).toBeInTheDocument();
+    expect(
+      screen.getByRole('heading', { name: /explore how rainfall and drainage assumptions interact/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/not a forecast or alert/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /neighbourhood scenario board/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /simulated ponding proxy/i })).toBeInTheDocument();
+    expect(screen.getByText(/not a probability or confidence interval/i)).toBeInTheDocument();
 
     fireEvent.change(screen.getByLabelText(/estimated blockage/i), { target: { value: '100' } });
-    expect(screen.getByText(/High scenario risk/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/estimated blockage/i)).toHaveValue('100');
+
+    fireEvent.click(screen.getByRole('button', { name: /intense cloudburst/i }));
+    expect(screen.getByText('150 mm')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: /old town, scenario index/i }));
+    expect(screen.getByRole('heading', { name: /old town \(w-03\)/i })).toBeInTheDocument();
   });
 
   it('calculates bounded, deterministic demonstration risk levels', () => {
