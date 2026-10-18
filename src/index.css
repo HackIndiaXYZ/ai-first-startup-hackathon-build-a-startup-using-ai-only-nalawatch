@@ -17,11 +17,12 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
-  min-width: 320px;
+  overflow-x: clip;
   background:
     radial-gradient(circle at top, rgba(44, 118, 255, 0.22), transparent 26%),
     radial-gradient(circle at bottom right, rgba(81, 214, 194, 0.16), transparent 30%),
@@ -1475,5 +1476,44 @@ section {
 
   .hero-visual {
     min-height: 460px;
+  }
+}
+
+@media (max-width: 400px) {
+  .page-shell {
+    width: calc(100% - 28px);
+  }
+
+  .topbar > .primary-button {
+    display: none;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(2rem, 10.5vw, 2.6rem);
+    line-height: 1;
+  }
+
+  .hero-visual {
+    min-height: 410px;
+    overflow: hidden;
+  }
+
+  .network-card {
+    left: 8px;
+    width: min(190px, calc(100% - 16px));
+    height: 190px;
+  }
+
+  .floating-card {
+    right: 8px;
+    width: min(220px, calc(100% - 16px));
+  }
+
+  .risk-simulator {
+    padding: 16px;
+  }
+
+  .ward-grid {
+    grid-template-columns: 1fr;
   }
 }
