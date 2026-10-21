@@ -35,7 +35,7 @@ function riskLevel(score) {
   return 'Low';
 }
 
-function simulateWard(ward, scenario, rainfallScale = 1, capacityScale = 1) {
+function simulateWard(ward, scenario, rainfallProfile, rainfallScale = 1, capacityScale = 1) {
   const drainFactor = (scenario.drainAvailability / 100) * (1 - scenario.blockage / 100);
   const groundFactor = 0.6 + (scenario.saturation / 100) * 0.4;
   const surfaceFactor = 0.8 + ward.lowPoint * 0.4;
@@ -43,7 +43,7 @@ function simulateWard(ward, scenario, rainfallScale = 1, capacityScale = 1) {
   const hourly = [];
 
   for (let hour = 0; hour < HOURS; hour += 1) {
-    const rainfallMm = scenario.rainfallMm * RAINFALL_SHAPE[hour] * rainfallScale;
+    const rainfallMm = rainfallProfile[hour] * rainfallScale;
     const runoffMm = rainfallMm * ward.imperviousness * groundFactor * surfaceFactor;
     const drainageMm = ward.drainCapacityMmPerHour * drainFactor * capacityScale;
     pondingMm = clamp(pondingMm + runoffMm - drainageMm, 0, MAX_PONDING_MM);
@@ -88,12 +88,37 @@ function normalizeScenario(scenario) {
   );
 }
 
-export function simulateCityScenario(inputs) {
+function buildRainfallProfile(scenario, forecastProfile) {
+  if (forecastProfile === null || forecastProfile === undefined) {
+    return RAINFALL_SHAPE.map((fraction) => scenario.rainfallMm * fraction);
+  }
+
+  if (
+    !Array.isArray(forecastProfile) ||
+    forecastProfile.length !== HOURS ||
+    forecastProfile.some((value) => !Number.isFinite(value) || value < 0)
+  ) {
+    throw new TypeError('Forecast profile must contain six finite, non-negative hourly values.');
+  }
+
+  const forecastTotal = forecastProfile.slice(0, 3).reduce((total, value) => total + value, 0);
+  if (forecastTotal === 0) {
+    return scenario.rainfallMm === 0
+      ? [...forecastProfile]
+      : RAINFALL_SHAPE.map((fraction) => scenario.rainfallMm * fraction);
+  }
+
+  const scale = scenario.rainfallMm / forecastTotal;
+  return forecastProfile.map((value) => value * scale);
+}
+
+export function simulateCityScenario(inputs, forecastProfile = null) {
   const scenario = normalizeScenario(inputs);
+  const rainfallProfile = buildRainfallProfile(scenario, forecastProfile);
   const wards = WARD_ZONES.map((ward) => {
-    const result = simulateWard(ward, scenario);
-    const optimistic = simulateWard(ward, scenario, 0.8, 1.2).score;
-    const conservative = simulateWard(ward, scenario, 1.2, 0.8).score;
+    const result = simulateWard(ward, scenario, rainfallProfile);
+    const optimistic = simulateWard(ward, scenario, rainfallProfile, 1.2, 0.8).score;
+    const conservative = simulateWard(ward, scenario, rainfallProfile, 0.8, 1.2).score;
 
     return {
       ...result,
@@ -104,9 +129,9 @@ export function simulateCityScenario(inputs) {
     };
   });
 
-  const rainfallTimeline = RAINFALL_SHAPE.map((fraction, index) => ({
+  const rainfallTimeline = rainfallProfile.map((rainfallMm, index) => ({
     hour: index + 1,
-    rainfallMm: Math.round(scenario.rainfallMm * fraction * 10) / 10,
+    rainfallMm: Math.round(rainfallMm * 10) / 10,
   }));
   const priorityWards = wards.filter((ward) => ward.score >= 45).length;
   const highestPriorityWard = [...wards].sort((a, b) => b.score - a.score)[0];

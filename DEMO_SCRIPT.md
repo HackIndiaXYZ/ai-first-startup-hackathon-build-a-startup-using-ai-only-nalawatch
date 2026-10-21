@@ -13,11 +13,11 @@ Target runtime: about 3 minutes 45 seconds. Record the deployed app after deploy
 ## 0:55–2:15 — Demonstrate the working prototype
 
 1. Open the deployed app and point out the explicit prototype limitation notice.
-2. Scroll to the synthetic flood scenario sandbox.
-3. Load the intense cloudburst preset; show how the fictional neighbourhood indices and rainfall profile change.
-4. Select a neighbourhood and compare its six-hour ponding proxy and sensitivity perturbation.
-5. Explain that this is a deterministic toy model with fictional values, not research-derived coefficients, a live forecast, machine learning, or an official alert.
-6. Show the model disclosure and research notes; explain what local data and validation a real pilot would require.
+2. Scroll to the scenario sandbox and select a city in the optional weather context.
+3. Load the hourly precipitation forecast and point out the source, update time, and next-three-hour total. Apply that profile to the demo.
+4. Explain that this is weather context—not a flood prediction. Apply the intense cloudburst preset to compare how the synthetic scenario responds.
+5. Select a neighbourhood and compare its six-hour ponding proxy and sensitivity perturbation.
+6. Explain the deterministic toy model’s fictional values, then show research notes and the data/validation requirements of a real pilot.
 
 ## 2:15–3:05 — Explain validation and safety
 
@@ -34,3 +34,4 @@ Target runtime: about 3 minutes 45 seconds. Record the deployed app after deploy
 - Keep the demo within 3–5 minutes; add captions and readable zoom.
 - Do not show private keys, personal data, or unapproved city data.
 - Do not claim the simulator is live, AI-predicted, or validated.
+- Credit Open-Meteo when showing its weather forecast, and do not imply the provider's precipitation output is a NalaWatch flood warning.

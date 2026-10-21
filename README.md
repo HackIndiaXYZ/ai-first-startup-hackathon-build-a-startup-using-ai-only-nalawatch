@@ -4,7 +4,7 @@ NalaWatch is a prototype concept for urban flood-risk decision support. Its inte
 
 ## Prototype scope and limitations
 
-The browser demo contains an interactive, rules-based scenario simulator with synthetic neighbourhood data. It exposes a simple six-hour bucket-model calculation, assumed storm profile, drainage constraints, and sensitivity perturbations. All inputs, ward attributes, equations, thresholds, and ranges are illustrative; none are calibrated from research papers, historical events, or a real city. It is not a validated flood forecast. It has no live weather feed, municipal sensor integration, calibrated hydrology model, or operational alerting. Do not use it for emergency decisions.
+The browser demo contains an interactive scenario simulator with synthetic neighbourhood data. It exposes a simple six-hour bucket-model calculation, drainage constraints, and sensitivity perturbations. Users may explicitly request an hourly precipitation forecast for one of five Indian cities from Open-Meteo; the weather forecast is separate context and may optionally supply a rainfall profile to the demo calculation. All ward attributes, drainage values, equations, thresholds, and scenario indices are illustrative; none are calibrated from research papers, historical events, or a real city. This is not a validated flood forecast. There is no municipal sensor integration, calibrated hydrology model, or operational alerting. Do not use it for emergency decisions.
 
 The research desk review and its limitations are documented in [RESEARCH_NOTES.md](./RESEARCH_NOTES.md). Research shaped the questions and transparency requirements represented by the demo, not its formula or parameter values. The next validation step is a consented pilot with a city partner, documented data sources, historical event data, and field-verified sensor readings. Model performance claims should only be added after a reproducible evaluation.
 
@@ -43,6 +43,12 @@ Open http://localhost:8080.
 
 Import the GitHub repository in Netlify with build command `npm run build` and publish directory `dist`. For deployment through GitHub Actions, configure `NETLIFY_AUTH_TOKEN` and `NETLIFY_SITE_ID` repository secrets. A successful CI build alone does not mean the app is publicly deployed.
 
+## Optional weather context
+
+The simulator contacts the Open-Meteo Forecast API only after a user selects **Load forecast**. It requests hourly precipitation for the selected preset city, displays the provider and retrieval time, and can copy the next-three-hour rainfall and next-six-hour profile into the synthetic scenario. The profile is scaled if the scenario rainfall slider is subsequently changed. This does not turn the result into a flood prediction: all drainage and neighbourhood parameters remain synthetic.
+
+The city coordinates are sent to Open-Meteo; no name, email, or other personal data is sent by this weather request. The free API is for non-commercial use, requires CC BY attribution, and its terms disclaim accuracy and availability guarantees. See [Open-Meteo documentation](https://open-meteo.com/en/docs), [terms](https://open-meteo.com/en/terms), and [license](https://open-meteo.com/en/licence). Obtain an appropriate paid plan before using the provider commercially.
+
 ## GitHub Pages deployment
 
 Pushes to `main` build the static app and publish through GitHub Pages Actions once a repository admin has enabled Pages and selected GitHub Actions as the source. Until then, the Pages step is explicitly skipped. The workflow uses the repository subpath when building for Pages. After the `github-pages` environment deployment succeeds, the app URL is:
@@ -62,4 +68,4 @@ The repository owner must enable Pages in repository settings and permit GitHub 
 
 ## Data and safety
 
-The prototype avoids collecting personal data. Do not enter sensitive information in the contact form. The simulator is for demonstration only; official weather warnings and qualified local response teams take precedence.
+The prototype does not store weather requests; city coordinates are transmitted to the selected weather provider only after the user requests a forecast. Do not enter sensitive information in the contact form. The simulator is for demonstration only; official weather warnings and qualified local response teams take precedence.

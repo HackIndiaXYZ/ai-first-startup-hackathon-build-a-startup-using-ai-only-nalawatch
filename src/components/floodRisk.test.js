@@ -86,4 +86,21 @@ describe('simulateCityScenario', () => {
     expect(result.wards.every((ward) => ward.peakPondingMm === 0)).toBe(true);
     expect(result.priorityWards).toBe(0);
   });
+
+  it('preserves a six-hour forecast rainfall pattern and scales it to the first-three-hour control', () => {
+    const forecast = [1, 2, 1, 4, 3, 2];
+    const result = simulateCityScenario({ ...DEFAULT_SCENARIO, rainfallMm: 8 }, forecast);
+
+    expect(result.rainfallTimeline.map((hour) => hour.rainfallMm)).toEqual([2, 4, 2, 8, 6, 4]);
+    expect(result.rainfallTimeline.slice(0, 3).reduce((sum, hour) => sum + hour.rainfallMm, 0)).toBe(8);
+  });
+
+  it('rejects malformed external rainfall profiles', () => {
+    expect(() => simulateCityScenario(DEFAULT_SCENARIO, [1, 2])).toThrow(
+      /six finite, non-negative hourly values/i,
+    );
+    expect(() => simulateCityScenario(DEFAULT_SCENARIO, [1, 2, 3, 4, 5, Number.NaN])).toThrow(
+      /six finite, non-negative hourly values/i,
+    );
+  });
 });

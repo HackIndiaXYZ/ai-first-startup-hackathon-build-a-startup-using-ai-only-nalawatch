@@ -11,8 +11,8 @@ const metrics = [
 
 const featureCards = [
   {
-    title: 'Storm scenario explorer',
-    description: 'Adjust an assumed three-hour rainfall total, ground saturation, blockage, and available drain capacity to explore a six-hour scenario.',
+    title: 'Live weather context',
+    description: 'Optionally fetch hourly precipitation forecasts for five Indian cities and use the next three-hour rainfall as a scenario input.',
     accent: 'graph',
   },
   {
@@ -22,7 +22,7 @@ const featureCards = [
   },
   {
     title: 'Explainable scenario outputs',
-    description: 'Inspect the assumed rainfall profile, an hourly ponding proxy, priority index, and a sensitivity check—not a probability forecast.',
+    description: 'Inspect forecast rainfall timing or a synthetic storm profile, an hourly ponding proxy, and a what-if sensitivity check—not a probability forecast.',
     accent: 'signal',
   },
   {
@@ -33,7 +33,7 @@ const featureCards = [
 ];
 
 const workflow = [
-  'Choose a synthetic rainfall, ground-saturation, blockage, and drainage-capacity scenario.',
+  'Optionally load hourly precipitation context for a selected Indian city, or use a synthetic storm preset.',
   'Compare six fictional neighbourhoods with different surface, low-point, drainage, and exposure assumptions.',
   'Inspect the simplified hourly ponding proxy and how its inputs shape the scenario index.',
   'Use sensitivity ranges and planning prompts to identify what real field data a future pilot would need.',
@@ -99,8 +99,8 @@ function App() {
             <div className="eyebrow">Urban flood preparedness · prototype</div>
             <h1>Explore flood scenarios before the storm.</h1>
             <p>
-              NalaWatch is an interactive flood scenario sandbox. It helps teams explore how assumed rainfall,
-              drainage, ground saturation, and local exposure could shape preparedness discussions.
+              NalaWatch is an interactive flood scenario sandbox. It pairs optional public rainfall forecast context
+              with explicit synthetic assumptions for drainage, ground saturation, and neighbourhood exposure.
             </p>
 
             <div className="hero-actions">
@@ -109,7 +109,7 @@ function App() {
             </div>
 
             <div className="mini-trust">
-              <span>Prototype only. Synthetic inputs and a toy model; no live feeds, verified city data, or validated forecasts.</span>
+              <span>Prototype only. Forecast rain is context, not a flood warning; drainage and neighbourhood data are synthetic.</span>
             </div>
 
             <div className="hero-list">

@@ -26,7 +26,7 @@ This is a focused desk review of five papers relevant to urban pluvial flooding,
 
 The literature informed the **questions and limits** represented by the demo: rainfall over time, drainage constraints, relative neighbourhood attributes, scenario comparison, sensitivity to assumptions, and a need for field verification. The implemented six-hour bucket model, ward attributes, coefficients, risk thresholds, and ±20% perturbations are original illustrative choices for interaction design. They are **not sourced from, calibrated against, or validated by any of the papers above**.
 
-The app contains no live weather service, city GIS layers, sewer network, IoT telemetry, machine-learning model, calibrated hydrology, uncertainty distribution, operational alerting, or evidence of forecast skill. Never use its output for emergency decisions.
+The app optionally retrieves hourly precipitation context from Open-Meteo after the user requests it. It does not contain city GIS layers, a sewer network, IoT telemetry, a machine-learning model, calibrated hydrology, an uncertainty distribution, operational alerting, or evidence of flood-forecast skill. Never use its output for emergency decisions.
 
 ## Responsible next research and pilot steps
 
@@ -40,3 +40,4 @@ The app contains no live weather service, city GIS layers, sewer network, IoT te
 
 - OpenAlex records used to check article titles, years, author lists, venues, and DOI: [Bulti & Abebe](https://api.openalex.org/works/https://doi.org/10.1007/s40808-020-00803-z), [Mosavi et al.](https://api.openalex.org/works/https://doi.org/10.3390/w10111536), [Sañudo et al.](https://api.openalex.org/works/https://doi.org/10.3390/w12092647), [Manandhar et al.](https://api.openalex.org/works/https://doi.org/10.3390/land12030627), and [Sahoo et al.](https://api.openalex.org/works/https://doi.org/10.1061/ajrua6.0000822).
 - Abstract checked for the ML review via its OpenAlex record and the urban drainage/surface-flow coupling paper via its OpenAlex record. For papers where full text was unavailable in this review, statements are restricted to bibliographic scope and the claims stated in accessible metadata; this note is not a substitute for reading full texts before a model design or performance claim.
+- The optional weather panel uses the [Open-Meteo Forecast API](https://open-meteo.com/en/docs), not the cited flood-modelling studies. Its outputs are precipitation context only. Check the provider's current [terms](https://open-meteo.com/en/terms) and [license](https://open-meteo.com/en/licence): the free API is limited to non-commercial use and requires CC BY 4.0 attribution; a commercial product needs an appropriate plan.

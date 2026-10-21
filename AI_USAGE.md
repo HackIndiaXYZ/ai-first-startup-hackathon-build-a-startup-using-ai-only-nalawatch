@@ -12,6 +12,7 @@ The project uses AI assistance during development; the deployed prototype does *
 - React, Vite, Vitest, ESLint, and Git: application and validation tooling.
 - GitHub Actions/Linux runner: automated lint, tests, and production build.
 - Optional Docker/Nginx: reproducible static container packaging.
+- Open-Meteo Forecast API: optional, user-triggered hourly precipitation context for preset Indian cities. It is a weather-data dependency, not an AI model, and it does not generate NalaWatch flood-risk predictions. The request sends the selected city's coordinates; see the current [terms](https://open-meteo.com/en/terms) and [license](https://open-meteo.com/en/licence) before use.
 
 Before submission, the team should add any other AI tools actually used, exact model names if known, dates, and links/evidence from its own usage logs. This report does not claim that ROS, external AI services, or model APIs were used.
 
@@ -29,6 +30,7 @@ These are selected verbatim user-prompt excerpts available in the conversation h
 
 - Problem framing, user-facing narrative, and product workflow
 - React component and responsive interface implementation
+- Optional external weather-context integration, source attribution, and failure-state handling
 - Heuristic function and boundary-case tests
 - Submission docs, pitch narrative, and demo outline
 - Build/test troubleshooting and repository updates

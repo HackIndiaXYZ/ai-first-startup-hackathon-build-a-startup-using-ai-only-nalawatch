@@ -10,6 +10,7 @@ Official page: https://hackindia.org/2026/ai-first-startup-hackathon-build-a-sta
 
 - [x] Public-repository code and project docs
 - [x] Interactive browser scenario simulator with synthetic neighbourhoods, transparent assumptions, sensitivity checks, and limitations
+- [x] Optional hourly precipitation forecast context with provider attribution, explicit user-triggered fetch, and clear separation from synthetic flood outputs
 - [x] Focused literature review with verified article metadata and an explicit distinction between research design implications and toy-model parameters
 - [x] Automated lint, unit tests, and production build
 - [x] Pitch narrative and PDF deck
@@ -33,4 +34,4 @@ Linux is already used by the GitHub Actions build runner. Docker/Nginx is option
 
 ## Safety boundary
 
-The current scenario tool is a deterministic toy bucket model with synthetic, user-adjustable inputs. It is not a live flood forecast, a research-implemented model, an official warning, or a substitute for local authorities. A real deployment needs permitted and documented data, hydrology expertise, validated evaluation, human review, and a defined incident-response owner.
+The current scenario tool is a deterministic toy bucket model with synthetic, user-adjustable inputs. The optional third-party weather forecast supplies rainfall context only; it is not a NalaWatch flood forecast. This is not a research-implemented model, official warning, or substitute for local authorities. A real deployment needs permitted and documented data, hydrology expertise, validated evaluation, human review, and a defined incident-response owner.

@@ -4,12 +4,13 @@ import {
   SCENARIO_PRESETS,
   simulateCityScenario,
 } from './floodRisk.js';
+import WeatherContext from './WeatherContext.jsx';
 
 const controls = [
   {
     id: 'rainfallMm',
     label: 'Rainfall total · next 3 hours',
-    hint: 'Synthetic storm total, distributed across three hourly steps.',
+    hint: 'Three-hour total. When a forecast is active, its hourly shape is scaled to this value.',
     min: 0,
     max: 240,
     unit: ' mm',
@@ -55,6 +56,7 @@ function ScenarioInput({ control, value, onChange }) {
         type="range"
         min={control.min}
         max={control.max}
+        step={control.id === 'rainfallMm' ? 0.1 : 1}
         value={value}
         onChange={(event) => onChange(control.id, Number(event.target.value))}
       />
@@ -85,18 +87,22 @@ function getPlanningChecks(level) {
   ];
 }
 
-function downloadScenario(scenario, result, selectedWard) {
+function downloadScenario(scenario, result, selectedWard, activeForecast) {
   const report = {
     product: 'NalaWatch synthetic flood scenario sandbox',
     createdAt: new Date().toISOString(),
     disclosure: result.modelDisclosure,
     assumptions: {
-      stormProfile: '20%, 50%, and 30% of entered rainfall total over hours 1–3; no rain in hours 4–6.',
+      stormProfile: activeForecast
+        ? 'Hourly precipitation forecast for the next six hours, scaled proportionally so the first three hours sum to the scenario rainfall control.'
+        : '20%, 50%, and 30% of entered rainfall total over hours 1–3; no rain in hours 4–6.',
       formula:
         'Ponding proxy = prior ponding + rainfall × imperviousness × ground factor × low-point factor − assumed drain throughput.',
       sensitivity:
         'Range varies rainfall by ±20% and drainage capacity by ∓20%; it is not a calibrated uncertainty interval.',
-      data: 'All ward attributes and inputs are synthetic; no live maps, sensors, forecasts, or resident data are used.',
+      data: activeForecast
+        ? `Rainfall profile from ${activeForecast.source} for ${activeForecast.city.name}; all ward attributes remain synthetic.`
+        : 'All ward attributes and rainfall inputs are synthetic; no live maps, sensors, or resident data are used.',
     },
     scenario,
     selectedWard,
@@ -111,6 +117,14 @@ function downloadScenario(scenario, result, selectedWard) {
       hourly: ward.hourly,
     })),
     rainfallTimeline: result.rainfallTimeline,
+    weatherSource: activeForecast
+      ? {
+          name: activeForecast.source,
+          city: activeForecast.city.name,
+          fetchedAt: activeForecast.fetchedAt,
+          attribution: 'https://open-meteo.com/',
+        }
+      : null,
   };
   const objectUrl = URL.createObjectURL(new Blob([JSON.stringify(report, null, 2)], { type: 'application/json' }));
   const link = document.createElement('a');
@@ -124,7 +138,15 @@ function downloadScenario(scenario, result, selectedWard) {
 
 function RiskSimulator() {
   const [scenario, setScenario] = useState(DEFAULT_SCENARIO);
-  const result = useMemo(() => simulateCityScenario(scenario), [scenario]);
+  const [activeForecast, setActiveForecast] = useState(null);
+  const forecastProfile = useMemo(
+    () => activeForecast?.hours.map((hour) => hour.precipitationMm) ?? null,
+    [activeForecast],
+  );
+  const result = useMemo(
+    () => simulateCityScenario(scenario, forecastProfile),
+    [scenario, forecastProfile],
+  );
   const [selectedWardId, setSelectedWardId] = useState(result.highestPriorityWard.id);
   const selectedWard =
     result.wards.find((ward) => ward.id === selectedWardId) ?? result.highestPriorityWard;
@@ -135,6 +157,19 @@ function RiskSimulator() {
 
   function applyPreset(name) {
     setScenario(SCENARIO_PRESETS[name]);
+    setActiveForecast(null);
+    setSelectedWardId('W-02');
+  }
+
+  function applyForecast(forecast) {
+    const rainfallMm = forecast.hours
+      .slice(0, 3)
+      .reduce((total, hour) => total + hour.precipitationMm, 0);
+    setScenario((current) => ({
+      ...current,
+      rainfallMm: Math.min(240, Math.round(rainfallMm * 10) / 10),
+    }));
+    setActiveForecast(forecast);
     setSelectedWardId('W-02');
   }
 
@@ -148,8 +183,8 @@ function RiskSimulator() {
           <span className="eyebrow">Interactive scenario · synthetic ward data</span>
           <h3 id="simulator-title">Explore how rainfall and drainage assumptions interact</h3>
           <p>
-            A six-hour, transparent bucket-model sandbox lets you compare synthetic neighbourhoods, storm
-            timing, drainage constraints, and exposure assumptions.
+            Compare six synthetic neighbourhoods under a transparent bucket-model scenario. Optionally load
+            a real hourly precipitation forecast as weather context; drainage and exposure remain fictional.
           </p>
         </div>
         <span className="data-badge">Simulation only · not a forecast or alert</span>
@@ -166,11 +201,17 @@ function RiskSimulator() {
         <button
           className="export-button"
           type="button"
-          onClick={() => downloadScenario(scenario, result, selectedWard)}
+          onClick={() => downloadScenario(scenario, result, selectedWard, activeForecast)}
         >
           Download scenario data
         </button>
       </div>
+
+      <WeatherContext
+        activeForecast={activeForecast?.fetchedAt}
+        onApply={applyForecast}
+        onRemove={() => setActiveForecast(null)}
+      />
 
       <div className="simulation-summary" aria-label="Scenario summary">
         <div className="summary-card">
@@ -247,7 +288,7 @@ function RiskSimulator() {
 
         <div className="chart-grid">
           <div className="scenario-chart">
-            <h5>Assumed rainfall profile</h5>
+            <h5>{activeForecast ? `Forecast rainfall profile · ${activeForecast.city.name}` : 'Assumed rainfall profile'}</h5>
             <div
               className="chart-bars rain-bars"
               role="img"
@@ -261,7 +302,11 @@ function RiskSimulator() {
                 </div>
               ))}
             </div>
-            <p>Rainfall total is allocated across the first three hours; the remaining hours are a drainage recovery scenario.</p>
+            <p>
+              {activeForecast
+                ? `Hourly rainfall comes from ${activeForecast.source} and is scaled to the scenario control.`
+                : 'Rainfall total is allocated across the first three hours; the remaining hours are a drainage recovery scenario.'}
+            </p>
           </div>
 
           <div className="scenario-chart">
@@ -307,7 +352,10 @@ function RiskSimulator() {
         </p>
       </details>
       <p className="simulator-note">
-        {result.modelDisclosure} No live weather, sensors, maps, resident data, or emergency services are connected.
+        {result.modelDisclosure} {activeForecast
+          ? `Only the rainfall context is external (${activeForecast.source} for ${activeForecast.city.name}); all drainage and ward properties remain synthetic.`
+          : 'No external forecast was loaded. All rainfall, drainage, and ward values are synthetic.'}
+        {' '}No live sensors, maps, resident data, or emergency services are connected.
         Always rely on official forecasts, local authorities, and field-verified conditions.
       </p>
     </section>

@@ -21,9 +21,9 @@ NalaWatch is designed as a city operations workspace that can:
 
 ## What works in this prototype
 
-The web demo includes a deterministic synthetic scenario simulator. Users can vary a rainfall profile, assumed drainage availability, blockage, and ground saturation, then compare six fictional neighbourhoods and inspect hourly ponding proxies, sensitivity perturbations, and discussion prompts.
+The web demo includes an optional Open-Meteo hourly precipitation context for five city presets, connected to a deterministic synthetic scenario simulator. Users can compare the retrieved rainfall profile with assumed drainage availability, blockage, and ground saturation across six fictional neighbourhoods, then inspect hourly ponding proxies, sensitivity perturbations, and discussion prompts.
 
-It is not a live prediction system: it uses no live weather or sensor feeds, no trained or calibrated hydrology model, and no field-validated performance data. The formula, parameters, fictional ward attributes, and sensitivity range are illustrative, not derived from the research reviewed in [RESEARCH_NOTES.md](./RESEARCH_NOTES.md). Outputs are educational and must not be used as emergency alerts.
+It is not a live flood-prediction system: the weather provider supplies precipitation context, but the demo has no city sensor data, sewer network, trained or calibrated hydrology model, or field-validated performance data. The formula, parameters, fictional ward attributes, and sensitivity range are illustrative, not derived from the research reviewed in [RESEARCH_NOTES.md](./RESEARCH_NOTES.md). Outputs are educational and must not be used as emergency alerts.
 
 ## Pilot proposal
 
