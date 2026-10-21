@@ -90,10 +90,10 @@ function App() {
           <a href="#simulator">Simulator</a>
         </nav>
 
-        <a className="primary-button" href="#contact">Discuss a pilot</a>
+        <a className="primary-button" href="#simulator">Open dashboard</a>
       </header>
 
-      <main id="main-content">
+      <main id="main-content" tabIndex="-1">
         <section className="hero">
           <div className="hero-copy">
             <div className="eyebrow">Urban flood preparedness · prototype</div>
@@ -166,6 +166,34 @@ function App() {
               <small>Not a real-time flood warning</small>
             </div>
           </div>
+        </section>
+
+        <section id="simulator" className="demo-showcase">
+          <div className="demo-heading section-header">
+            <span className="eyebrow">Live demo</span>
+            <h2>Explore a transparent flood-risk scenario.</h2>
+          </div>
+
+          <div className="mode-toggle" role="group" aria-label="Demo view">
+            <button
+              type="button"
+              className={`toggle ${view === 'dashboard' ? 'active' : ''}`}
+              onClick={() => setView('dashboard')}
+              aria-pressed={view === 'dashboard'}
+            >
+              Scenario simulator
+            </button>
+            <button
+              type="button"
+              className={`toggle ${view === 'pitch' ? 'active' : ''}`}
+              onClick={() => setView('pitch')}
+              aria-pressed={view === 'pitch'}
+            >
+              Startup pitch
+            </button>
+          </div>
+
+          {view === 'dashboard' ? <RiskSimulator /> : <PitchDeck />}
         </section>
 
         <section className="metrics" aria-label="Key performance metrics">
@@ -241,34 +269,6 @@ function App() {
               Read the selected literature and model limitations
             </a>
           </div>
-        </section>
-
-        <section id="simulator" className="demo-showcase">
-          <div className="demo-heading section-header">
-            <span className="eyebrow">Demo</span>
-            <h2>Explore a transparent flood-risk scenario.</h2>
-          </div>
-
-          <div className="mode-toggle" aria-label="Demo view toggle">
-            <button
-              type="button"
-              className={`toggle ${view === 'dashboard' ? 'active' : ''}`}
-              onClick={() => setView('dashboard')}
-              aria-pressed={view === 'dashboard'}
-            >
-              Scenario simulator
-            </button>
-            <button
-              type="button"
-              className={`toggle ${view === 'pitch' ? 'active' : ''}`}
-              onClick={() => setView('pitch')}
-              aria-pressed={view === 'pitch'}
-            >
-              Startup pitch
-            </button>
-          </div>
-
-          {view === 'dashboard' ? <RiskSimulator /> : <PitchDeck />}
         </section>
 
         <section className="cta-section">

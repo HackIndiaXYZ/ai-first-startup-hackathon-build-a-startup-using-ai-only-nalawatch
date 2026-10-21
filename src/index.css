@@ -30,6 +30,25 @@ body {
   color: #edf2ff;
 }
 
+.skip-link {
+  position: absolute;
+  z-index: 1000;
+  top: 12px;
+  left: 12px;
+  transform: translateY(calc(-100% - 16px));
+  padding: 0.7rem 1rem;
+  border: 2px solid #83d5ff;
+  border-radius: 10px;
+  background: #07111f;
+  color: #edf2ff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 button {
   font: inherit;
   cursor: pointer;
@@ -697,7 +716,8 @@ section {
 }
 
 .demo-showcase {
-  margin-top: 80px;
+  margin-top: 42px;
+  scroll-margin-top: 20px;
 }
 
 .demo-heading {
@@ -971,6 +991,25 @@ section {
 .scenario-controls {
   display: grid;
   gap: 14px;
+}
+
+.scenario-controls-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  grid-column: 1 / -1;
+  padding: 2px 2px 0;
+}
+
+.scenario-controls-heading h4 {
+  margin: 3px 0 0;
+  font-size: 1.1rem;
+}
+
+.input-count {
+  color: #9bb5d8;
+  font-size: 0.75rem;
 }
 
 .scenario-input,
@@ -1600,7 +1639,17 @@ section {
   }
 
   .nav {
-    display: none;
+    order: 3;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(151, 172, 219, 0.12);
+  }
+
+  .nav a {
+    font-size: 0.84rem;
   }
 
   .simulator-layout {
@@ -1608,10 +1657,11 @@ section {
   }
 
   .simulation-summary {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .topbar {
+    flex-wrap: wrap;
     justify-content: space-between;
   }
 
@@ -1637,6 +1687,55 @@ section {
 
   .simulator-intro {
     flex-direction: column;
+  }
+
+  .scenario-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .scenario-presets {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .scenario-input {
+    padding: 14px;
+  }
+
+  .scenario-label-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .scenario-input input[type='range'] {
+    margin: 12px 0 8px;
+  }
+
+  .scenario-input small {
+    display: block;
+    font-size: 0.72rem;
+    line-height: 1.45;
+  }
+
+  .simulation-summary {
+    gap: 8px;
+  }
+
+  .summary-card {
+    padding: 12px;
+  }
+
+  .summary-card > span,
+  .summary-card > small {
+    font-size: 0.68rem;
+    line-height: 1.35;
+  }
+
+  .summary-card > strong {
+    font-size: 1.2rem;
   }
 
   .weather-context-heading,
@@ -1691,7 +1790,16 @@ section {
   }
 
   .topbar > .primary-button {
-    display: none;
+    padding: 0.58rem 0.72rem;
+    font-size: 0.72rem;
+  }
+
+  .nav {
+    gap: 6px;
+  }
+
+  .nav a {
+    font-size: 0.75rem;
   }
 
   .hero-copy h1 {
@@ -1716,10 +1824,23 @@ section {
   }
 
   .risk-simulator {
-    padding: 16px;
+    padding: 13px;
   }
 
   .ward-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .ward-tile {
+    padding: 10px;
+  }
+
+  .summary-card {
+    padding: 10px;
+  }
+
+  .summary-card > strong {
+    font-size: 1.05rem;
   }
 }

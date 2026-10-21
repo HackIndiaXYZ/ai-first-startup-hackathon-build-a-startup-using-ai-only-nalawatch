@@ -8,6 +8,18 @@ describe('App', () => {
 
     expect(screen.getByRole('heading', { name: /explore flood scenarios before the storm/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /try the scenario/i })).toHaveAttribute('href', '#simulator');
+    expect(screen.getByRole('link', { name: /open dashboard/i })).toHaveAttribute('href', '#simulator');
+  });
+
+  it('shows the dashboard before the supporting product sections', () => {
+    render(<App />);
+
+    const sections = [...screen.getByRole('main').querySelectorAll('section')];
+    const dashboardIndex = sections.findIndex((section) => section.id === 'simulator');
+    const productIndex = sections.findIndex((section) => section.id === 'product');
+
+    expect(dashboardIndex).toBeGreaterThanOrEqual(0);
+    expect(dashboardIndex).toBeLessThan(productIndex);
   });
 
   it('renders the transparent synthetic scenario simulator', () => {

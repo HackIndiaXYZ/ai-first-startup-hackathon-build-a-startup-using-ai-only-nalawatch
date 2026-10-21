@@ -232,7 +232,14 @@ function RiskSimulator() {
       </div>
 
       <div className="simulator-layout">
-        <div className="scenario-controls" aria-label="Flood scenario assumptions">
+        <section className="scenario-controls" aria-labelledby="scenario-controls-title">
+          <div className="scenario-controls-heading">
+            <div>
+              <span className="result-label">Scenario inputs</span>
+              <h4 id="scenario-controls-title">Adjust assumptions</h4>
+            </div>
+            <span className="input-count">4 controls</span>
+          </div>
           {controls.map((control) => (
             <ScenarioInput
               key={control.id}
@@ -241,7 +248,7 @@ function RiskSimulator() {
               onChange={updateScenario}
             />
           ))}
-        </div>
+        </section>
 
         <section className="ward-board" aria-labelledby="ward-board-title">
           <div className="panel-heading">
