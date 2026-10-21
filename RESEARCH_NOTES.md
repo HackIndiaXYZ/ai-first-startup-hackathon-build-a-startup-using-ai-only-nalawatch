@@ -4,7 +4,7 @@ Review date: 21 October 2026
 
 ## Scope
 
-This is a focused desk review of five papers relevant to urban pluvial flooding, flood prediction methods, and South Asian risk context. Bibliographic details were checked against OpenAlex records and DOI landing pages; abstracts were used where available. It is not a systematic review, and it does not validate the application's calculations.
+This is a focused desk review of five papers relevant to urban pluvial flooding, flood prediction methods, and South Asian risk context. Bibliographic details and accessible abstracts were checked against OpenAlex records; DOI links are provided for follow-up. It is not a systematic review, and it does not validate the application's calculations.
 
 ## Selected literature
 
