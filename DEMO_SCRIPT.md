@@ -13,10 +13,11 @@ Target runtime: about 3 minutes 45 seconds. Record the deployed app after deploy
 ## 0:55–2:15 — Demonstrate the working prototype
 
 1. Open the deployed app and point out the explicit prototype limitation notice.
-2. Scroll to “Explore a transparent flood-risk scenario.”
-3. Adjust rainfall, drain load, and blockage sliders; narrate how the score and planning checklist change.
-4. Explain that the score is a deterministic demonstration heuristic with illustrative weights, not machine learning, a live forecast, or an official alert.
-5. Show the workflow and explain where real municipal/weather data would enter after a partner and data permissions are secured.
+2. Scroll to the synthetic flood scenario sandbox.
+3. Load the intense cloudburst preset; show how the fictional neighbourhood indices and rainfall profile change.
+4. Select a neighbourhood and compare its six-hour ponding proxy and sensitivity perturbation.
+5. Explain that this is a deterministic toy model with fictional values, not research-derived coefficients, a live forecast, machine learning, or an official alert.
+6. Show the model disclosure and research notes; explain what local data and validation a real pilot would require.
 
 ## 2:15–3:05 — Explain validation and safety
 

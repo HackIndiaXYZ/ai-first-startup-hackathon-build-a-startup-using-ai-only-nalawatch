@@ -87,7 +87,7 @@ function getPlanningChecks(level) {
 
 function downloadScenario(scenario, result, selectedWard) {
   const report = {
-    product: 'NalaWatch research-informed scenario sandbox',
+    product: 'NalaWatch synthetic flood scenario sandbox',
     createdAt: new Date().toISOString(),
     disclosure: result.modelDisclosure,
     assumptions: {

@@ -4,7 +4,7 @@
 
 AI was used as a primary builder for startup framing, product copy, interface structure, React implementation, styling, test creation, documentation, and iterative debugging. The human role is to review outputs, verify claims and behavior, run tests, and make final submission and safety decisions.
 
-The project uses AI assistance during development; the deployed prototype does **not** call an AI model. Its scenario score is a deterministic weighted heuristic. Do not describe that score as machine learning or validated prediction.
+The project uses AI assistance during development; the deployed prototype does **not** call an AI model. Its scenario output is a deterministic synthetic bucket-model exercise with illustrative ward factors and scenario-index thresholds. These values are not research-derived or validated. Do not describe the output as machine learning or flood prediction.
 
 ## Tool disclosure
 

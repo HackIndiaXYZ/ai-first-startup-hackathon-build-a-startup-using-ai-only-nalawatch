@@ -579,6 +579,21 @@ section {
   line-height: 1;
 }
 
+.research-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: #9ee7ff;
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-underline-offset: 4px;
+}
+
+.research-link:focus-visible {
+  outline: 2px solid #83d5ff;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

@@ -97,9 +97,9 @@ function App() {
         <section className="hero">
           <div className="hero-copy">
             <div className="eyebrow">Urban flood preparedness · prototype</div>
-            <h1>Predict floods before they hit the city.</h1>
+            <h1>Explore flood scenarios before the storm.</h1>
             <p>
-              NalaWatch is an interactive research-informed scenario sandbox. It helps teams explore how assumed rainfall,
+              NalaWatch is an interactive flood scenario sandbox. It helps teams explore how assumed rainfall,
               drainage, ground saturation, and local exposure could shape preparedness discussions.
             </p>
 
@@ -180,7 +180,7 @@ function App() {
         <section id="product" className="features">
           <div className="section-header">
             <span className="eyebrow">Product</span>
-            <h2>From weather warning to field action.</h2>
+            <h2>From changing assumptions to preparedness questions.</h2>
           </div>
 
           <div className="cards-grid">
@@ -197,7 +197,7 @@ function App() {
         <section id="workflow" className="workflow">
           <div className="section-header narrow">
             <span className="eyebrow">Workflow</span>
-            <h2>How NalaWatch turns risk data into action.</h2>
+            <h2>How the NalaWatch prototype explores flood scenarios.</h2>
           </div>
 
           <div className="workflow-inner">
@@ -213,7 +213,7 @@ function App() {
         <section id="mission" className="mission">
           <div className="mission-copy">
             <span className="eyebrow">Mission</span>
-            <h2>Protect lives, roads, and livelihoods before the monsoon peaks.</h2>
+            <h2>Help cities prepare for safer monsoon decisions.</h2>
             <p>
               Urban flooding is shaped by rainfall, ground conditions, drainage capacity, and exposure. NalaWatch explores
               how those factors might be discussed together before a validated operational system exists.
@@ -225,13 +225,21 @@ function App() {
           </div>
 
           <div className="mission-card">
-            <div className="mission-pill">Research-informed prototype</div>
+            <div className="mission-pill">Prototype guided by research review</div>
             <ul>
               <li>Synthetic rainfall scenarios</li>
               <li>Assumed drainage constraints</li>
               <li>Illustrative neighbourhood comparison</li>
               <li>Future pilot data requirements</li>
             </ul>
+            <a
+              className="research-link"
+              href="https://github.com/HackIndiaXYZ/ai-first-startup-hackathon-build-a-startup-using-ai-only-nalawatch/blob/main/RESEARCH_NOTES.md"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Read the selected literature and model limitations
+            </a>
           </div>
         </section>
 
@@ -267,7 +275,7 @@ function App() {
           <div className="cta-panel">
             <div>
               <span className="eyebrow">Ready to act early?</span>
-              <h2>Turn flood risk into a measurable response plan.</h2>
+              <h2>Turn scenario questions into a responsible pilot plan.</h2>
             </div>
             <a className="primary-button large" href="#contact">Discuss a pilot</a>
           </div>

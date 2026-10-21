@@ -1,12 +1,12 @@
 # NalaWatch
 
-NalaWatch is a prototype concept for urban flood-risk decision support. It brings rainfall, drainage, and local exposure into a planning workflow for civic and emergency-response teams.
+NalaWatch is a prototype concept for urban flood-risk decision support. Its interactive scenario sandbox helps teams discuss rainfall, drainage constraints, and relative exposure assumptions.
 
 ## Prototype scope and limitations
 
-The browser demo contains an interactive, rules-based scenario simulator. Its rainfall, drain-load, and blockage values are entered by the user; the score is illustrative and is not a validated flood forecast. It has no live weather feed, municipal sensor integration, calibrated hydrology model, or operational alerting. Do not use it for emergency decisions.
+The browser demo contains an interactive, rules-based scenario simulator with synthetic neighbourhood data. It exposes a simple six-hour bucket-model calculation, assumed storm profile, drainage constraints, and sensitivity perturbations. All inputs, ward attributes, equations, thresholds, and ranges are illustrative; none are calibrated from research papers, historical events, or a real city. It is not a validated flood forecast. It has no live weather feed, municipal sensor integration, calibrated hydrology model, or operational alerting. Do not use it for emergency decisions.
 
-The next validation step is a consented pilot with a city partner, documented data sources, historical event data, and field-verified sensor readings. Model performance claims should only be added after a reproducible evaluation.
+The research desk review and its limitations are documented in [RESEARCH_NOTES.md](./RESEARCH_NOTES.md). Research shaped the questions and transparency requirements represented by the demo, not its formula or parameter values. The next validation step is a consented pilot with a city partner, documented data sources, historical event data, and field-verified sensor readings. Model performance claims should only be added after a reproducible evaluation.
 
 ## Run locally
 
@@ -57,6 +57,7 @@ The repository owner must enable Pages in repository settings and permit GitHub 
 - `AI_USAGE.md` — AI-assisted workflow and representative prompt log
 - `DEMO_SCRIPT.md` — timed 3–5 minute demo/video outline
 - `SUBMISSION_CHECKLIST.md` — deliverables and remaining external steps
+- `RESEARCH_NOTES.md` — selected literature, sourced implications, and model limitations
 - `pitch-deck/NalaWatch-investor-deck.pdf` — concise pitch deck
 
 ## Data and safety

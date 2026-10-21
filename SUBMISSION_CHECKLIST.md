@@ -9,7 +9,8 @@ Official page: https://hackindia.org/2026/ai-first-startup-hackathon-build-a-sta
 ## Prepared in this repository
 
 - [x] Public-repository code and project docs
-- [x] Interactive browser scenario simulator with a transparent heuristic and limitations
+- [x] Interactive browser scenario simulator with synthetic neighbourhoods, transparent assumptions, sensitivity checks, and limitations
+- [x] Focused literature review with verified article metadata and an explicit distinction between research design implications and toy-model parameters
 - [x] Automated lint, unit tests, and production build
 - [x] Pitch narrative and PDF deck
 - [x] AI usage report with representative prompt themes
@@ -32,4 +33,4 @@ Linux is already used by the GitHub Actions build runner. Docker/Nginx is option
 
 ## Safety boundary
 
-The current risk tool is a demonstration heuristic with user-entered synthetic inputs. It is not a live flood forecast, an official warning, or a substitute for local authorities. A real deployment needs permitted and documented data, validated evaluation, human review, and a defined incident-response owner.
+The current scenario tool is a deterministic toy bucket model with synthetic, user-adjustable inputs. It is not a live flood forecast, a research-implemented model, an official warning, or a substitute for local authorities. A real deployment needs permitted and documented data, hydrology expertise, validated evaluation, human review, and a defined incident-response owner.
