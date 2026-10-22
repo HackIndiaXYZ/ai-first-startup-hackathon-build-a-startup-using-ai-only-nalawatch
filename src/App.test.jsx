@@ -112,4 +112,16 @@ describe('App', () => {
     expect(brief).toHaveTextContent(/review drain inspection priorities/i);
     expect(brief).toHaveTextContent(/not a flood prediction or public warning/i);
   });
+
+  it('starts a guided scenario and preselects useful tabletop tasks', () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole('button', { name: /start guided exercise/i }));
+
+    expect(screen.getByLabelText(/rainfall total/i)).toHaveValue('150');
+    expect(screen.getByRole('button', { name: /pause timeline/i })).toBeInTheDocument();
+    expect(screen.getByText(/2 selected/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /selected.*verify against local reports/i })).toHaveAttribute('aria-pressed', 'true');
+    expect(screen.getByRole('button', { name: /selected.*review drain inspection priorities/i })).toHaveAttribute('aria-pressed', 'true');
+  });
 });

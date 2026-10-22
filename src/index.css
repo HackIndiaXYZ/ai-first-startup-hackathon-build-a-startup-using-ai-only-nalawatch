@@ -1458,6 +1458,17 @@ section {
   background-color: rgba(24, 47, 65, 0.95);
 }
 
+.guided-exercise-button {
+  border-color: rgba(94, 216, 202, 0.5);
+  background: linear-gradient(120deg, rgba(20, 105, 105, 0.78), rgba(26, 73, 95, 0.9));
+  font-weight: 750;
+}
+
+.guided-exercise-button:hover {
+  border-color: #7be3d6;
+  background: linear-gradient(120deg, rgba(24, 128, 124, 0.9), rgba(34, 88, 111, 0.96));
+}
+
 .simulation-summary {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

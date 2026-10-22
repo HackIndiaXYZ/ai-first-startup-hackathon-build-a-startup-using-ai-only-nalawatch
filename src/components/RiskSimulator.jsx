@@ -258,6 +258,22 @@ function RiskSimulator() {
     setSelectedWardId('W-02');
   }
 
+  function startGuidedExercise() {
+    const guidedScenario = SCENARIO_PRESETS['Intense cloudburst'];
+    const guidedWard = simulateCityScenario(guidedScenario).highestPriorityWard;
+    setScenario(guidedScenario);
+    setActiveForecast(null);
+    setSelectedWardId(guidedWard.id);
+    setSimulationHour(1);
+    setSelectedTabletopActions(['verify-reports', 'drain-review']);
+    setTabletopBrief(null);
+    setIsPlaying(true);
+    const timelineHeading = document.getElementById('simulation-timeline-title');
+    if (typeof timelineHeading?.scrollIntoView === 'function') {
+      timelineHeading.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
   function applyForecast(forecast) {
     const rainfallMm = forecast.hours
       .slice(0, 3)
@@ -387,6 +403,14 @@ function RiskSimulator() {
             </button>
           ))}
         </div>
+        <button
+          className="export-button guided-exercise-button"
+          type="button"
+          onClick={startGuidedExercise}
+          title="Load a synthetic scenario, play its timeline, and select two discussion tasks."
+        >
+          Start guided exercise
+        </button>
         <button
           className="export-button"
           type="button"

@@ -29,6 +29,7 @@ These are selected verbatim user-prompt excerpts available in the conversation h
 7. “Scince I can not think I can win first prize”
 8. “Do that all by yourself”
 9. “Scince I can not think I get 1st prize so make it such that all experience all gather by dashboard not just informetion written in dashboard”
+10. “Continue why so late!”
 
 ## Work areas accelerated with AI
 
@@ -36,6 +37,7 @@ These are selected verbatim user-prompt excerpts available in the conversation h
 - React component and responsive interface implementation
 - Scenario-baseline comparison interaction and responsive dashboard refinements
 - Six-hour interactive scenario playback and user-built tabletop discussion briefs
+- One-click guided exercise that configures and starts the interactive dashboard flow
 - Proposed Mumbai pilot framing, visible source-boundary disclosures, and a judge-ready walkthrough
 - Optional external weather-context integration, source attribution, and failure-state handling
 - Heuristic function and boundary-case tests
