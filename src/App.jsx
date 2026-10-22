@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import AccountControl from './components/AccountControl.jsx';
 import ContactForm from './components/ContactForm.jsx';
 import RiskSimulator from './components/RiskSimulator.jsx';
+import { AuthProvider } from './auth/FirebaseAuthContext.jsx';
 
 const metrics = [
   { value: 'Rainfall', label: 'Weather context' },
@@ -69,7 +71,7 @@ function PitchDeck() {
   );
 }
 
-function App() {
+function AppContent() {
   const [view, setView] = useState('dashboard');
 
   return (
@@ -91,6 +93,7 @@ function App() {
         </nav>
 
         <a className="primary-button" href="#simulator">Open dashboard</a>
+        <AccountControl />
       </header>
 
       <main id="main-content" tabIndex="-1">
@@ -290,6 +293,14 @@ function App() {
         </section>
       </main>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   );
 }
 

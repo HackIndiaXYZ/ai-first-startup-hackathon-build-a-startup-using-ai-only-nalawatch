@@ -10,6 +10,7 @@ Official page: https://hackindia.org/2026/ai-first-startup-hackathon-build-a-sta
 
 - [x] Public-repository code and project docs
 - [x] Interactive browser scenario simulator with synthetic neighbourhoods, transparent assumptions, sensitivity checks, baseline comparison, and limitations
+- [x] Firebase Google/email sign-in integration, account sign-out, private scenario save/load/delete flows, and owner-scoped Firestore rules
 - [x] Optional hourly precipitation forecast context with provider attribution, explicit user-triggered fetch, and clear separation from synthetic flood outputs
 - [x] Focused literature review with verified article metadata and an explicit distinction between research design implications and toy-model parameters
 - [x] Automated lint, unit tests, and production build
@@ -23,6 +24,7 @@ Official page: https://hackindia.org/2026/ai-first-startup-hackathon-build-a-sta
 - [ ] Confirm all members have registered and team size is within 1–6.
 - [ ] Audit AI usage logs and truthfully verify the 80%+ AI execution requirement; add other actual tools/models/prompts used.
 - [ ] Ask a repository admin to enable GitHub Pages with GitHub Actions as the source (or configure Netlify deployment credentials/use another host), deploy, then verify the public URL in a fresh browser session.
+- [ ] Create/configure the Firebase project, enable Google and Email/Password sign-in, create Firestore, publish `firestore.rules`, set the `VITE_FIREBASE_*` deployment variables, add authorized domains, and test data isolation with separate accounts.
 - [ ] Record and upload the 3–5 minute demo video; submit its URL.
 - [ ] Upload the public GitHub repository URL, live app URL, video URL, pitch deck, and AI usage report through the official team submission flow.
 - [ ] Check code-freeze time and submission deadlines on the team page; submit before freeze.

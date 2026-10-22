@@ -21,6 +21,20 @@ npm run dev
 
 Open the local URL printed by Vite (normally http://localhost:5173).
 
+## Authentication and private scenario saves
+
+Sign-in supports Google and email/password through Firebase Authentication. Signed-in users can save, load, and delete their scenario inputs in a Firestore path scoped to their Firebase user ID. Weather forecasts, comparison baselines, and simulator history are not saved with these records. Anonymous visitors can still use the simulator without signing in.
+
+Real sign-in requires a Firebase project; without one, the app displays setup instructions and does not pretend sign-in succeeded.
+
+1. Create a Firebase project and register a **Web app**. Copy its web app configuration into a local `.env.local` file using [.env.example](./.env.example) as the template. These `VITE_` values are included in the browser bundle; use only the Firebase web app config, never a service-account key or other private credential.
+2. In Firebase Console → **Authentication** → **Sign-in method**, enable **Google** and **Email/Password**. Add the local development hostname and each deployed hostname to Authentication → **Settings** → **Authorized domains**.
+3. Create a **Cloud Firestore** database. Open the Firestore **Rules** tab and publish the rules in [firestore.rules](./firestore.rules). The rules only allow each authenticated user to read, create, and delete scenario documents under their own UID; other documents and updates are denied.
+4. Restart the local Vite server after editing `.env.local`, then test Google and email sign-in and verify separate accounts cannot see each other's saved scenarios.
+5. For GitHub Pages builds, add the four `VITE_FIREBASE_*` values as repository **Actions variables** (not service-account secrets) in Settings → Secrets and variables → Actions. For Netlify, add the same public web config as site environment variables. Rebuild/redeploy after setting these values.
+
+Firebase web config is public by design; privacy depends on Authentication and Firestore Security Rules. Review Firebase's current [Google sign-in setup](https://firebase.google.com/docs/auth/web/google-signin) and [Firestore security rules](https://firebase.google.com/docs/firestore/security/rules-conditions), and configure Firebase's data retention and account policies before inviting real users.
+
 ## Validate and build
 
 ```bash
@@ -40,6 +54,8 @@ docker run --rm -p 8080:8080 nalawatch
 ```
 
 Open http://localhost:8080.
+
+The container can be built with Firebase web app settings using the Docker build arguments declared in [Dockerfile](./Dockerfile). These values are public client configuration and are compiled into the static app; never pass service-account keys or other private credentials.
 
 ## Netlify deployment
 
@@ -70,4 +86,4 @@ The repository owner must enable Pages in repository settings and permit GitHub 
 
 ## Data and safety
 
-The prototype does not store weather requests; city coordinates are transmitted to the selected weather provider only after the user requests a forecast. Do not enter sensitive information in the contact form. The simulator is for demonstration only; official weather warnings and qualified local response teams take precedence.
+The prototype does not store weather requests; city coordinates are transmitted to the selected weather provider only after the user requests a forecast. If authentication is configured, Firebase receives account information and only explicitly saved scenario inputs; scenario saves are private by user ID according to the included Firestore rules. Do not store sensitive information or operational response data in the app or enter it in the contact form. The simulator is for demonstration only; official weather warnings and qualified local response teams take precedence.

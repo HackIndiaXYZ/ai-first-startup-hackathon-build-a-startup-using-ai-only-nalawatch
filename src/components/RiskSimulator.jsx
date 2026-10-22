@@ -1,10 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   DEFAULT_SCENARIO,
   SCENARIO_PRESETS,
   simulateCityScenario,
 } from './floodRisk.js';
 import WeatherContext from './WeatherContext.jsx';
+import { useAuth } from '../auth/FirebaseAuthContext.jsx';
 
 const controls = [
   {
@@ -137,10 +138,21 @@ function downloadScenario(scenario, result, selectedWard, activeForecast) {
 }
 
 function RiskSimulator() {
+  const {
+    user,
+    listUserScenarios,
+    saveUserScenario: persistUserScenario,
+    deleteUserScenario: removeUserScenario,
+  } = useAuth();
   const [scenario, setScenario] = useState(DEFAULT_SCENARIO);
   const [activeForecast, setActiveForecast] = useState(null);
   const [comparisonBaseline, setComparisonBaseline] = useState(null);
   const [prioritySort, setPrioritySort] = useState(false);
+  const [savedScenarios, setSavedScenarios] = useState([]);
+  const [savedScenariosUserId, setSavedScenariosUserId] = useState(null);
+  const [scenarioTitle, setScenarioTitle] = useState('');
+  const [savingScenario, setSavingScenario] = useState(false);
+  const [savedScenarioError, setSavedScenarioError] = useState(null);
   const forecastProfile = useMemo(
     () => activeForecast?.hours.map((hour) => hour.precipitationMm) ?? null,
     [activeForecast],
@@ -162,6 +174,38 @@ function RiskSimulator() {
   const displayedWards = prioritySort
     ? [...result.wards].sort((first, second) => second.score - first.score)
     : result.wards;
+  const visibleSavedScenarios = savedScenariosUserId === user?.uid ? savedScenarios : [];
+  const currentSavedScenarioError =
+    savedScenarioError && savedScenarioError.userId === user?.uid ? savedScenarioError.message : '';
+  const savedScenariosLoading =
+    Boolean(user) && savedScenariosUserId !== user.uid && !currentSavedScenarioError;
+
+  useEffect(() => {
+    let active = true;
+
+    if (!user) return undefined;
+
+    listUserScenarios(user.uid)
+      .then((scenarios) => {
+        if (active) {
+          setSavedScenarios(scenarios);
+          setSavedScenariosUserId(user.uid);
+          setSavedScenarioError((current) => (current?.userId === user.uid ? null : current));
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setSavedScenarioError({
+            userId: user.uid,
+            message: 'Saved scenarios could not be loaded. Check your connection and Firestore rules.',
+          });
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [listUserScenarios, user]);
 
   function updateScenario(key, value) {
     setScenario((current) => ({ ...current, [key]: value }));
@@ -193,6 +237,51 @@ function RiskSimulator() {
         ? `Open-Meteo rainfall context · ${activeForecast.city.name}`
         : 'Synthetic rainfall profile',
     });
+  }
+
+  async function handleSaveUserScenario(event) {
+    event.preventDefault();
+    const title = scenarioTitle.trim();
+    if (!user || !title) return;
+
+    setSavingScenario(true);
+    setSavedScenarioError(null);
+    try {
+      const savedDocument = await persistUserScenario(user.uid, title, scenario);
+      setSavedScenarios((current) => [
+        { id: savedDocument.id, title: title.slice(0, 60), inputs: { ...scenario }, createdAt: null },
+        ...(savedScenariosUserId === user.uid ? current : []),
+      ]);
+      setSavedScenariosUserId(user.uid);
+      setScenarioTitle('');
+    } catch {
+      setSavedScenarioError({
+        userId: user.uid,
+        message: 'Scenario could not be saved. Check your connection and Firestore rules.',
+      });
+    } finally {
+      setSavingScenario(false);
+    }
+  }
+
+  async function deleteUserScenario(scenarioId) {
+    if (!user) return;
+    setSavedScenarioError(null);
+    try {
+      await removeUserScenario(user.uid, scenarioId);
+      setSavedScenarios((current) => current.filter((savedScenario) => savedScenario.id !== scenarioId));
+    } catch {
+      setSavedScenarioError({
+        userId: user.uid,
+        message: 'Scenario could not be deleted. Check your connection and Firestore rules.',
+      });
+    }
+  }
+
+  function loadUserScenario(savedScenario) {
+    setScenario(savedScenario.inputs);
+    setActiveForecast(null);
+    setSelectedWardId('W-02');
   }
 
   const maxRainfall = Math.max(1, ...result.rainfallTimeline.map((point) => point.rainfallMm));
@@ -237,6 +326,80 @@ function RiskSimulator() {
         onApply={applyForecast}
         onRemove={() => setActiveForecast(null)}
       />
+
+      <section className="saved-scenarios" aria-labelledby="saved-scenarios-title">
+        <div className="saved-scenarios-heading">
+          <div>
+            <span className="result-label">Private workspace</span>
+            <h4 id="saved-scenarios-title">My saved scenarios</h4>
+            <p>
+              {user
+                ? `Saved privately to your account (${user.email || user.displayName || 'signed-in user'}).`
+                : 'Sign in to save scenarios privately and access them from your account.'}
+            </p>
+          </div>
+        </div>
+        {user ? (
+          <>
+            <form className="save-scenario-form" onSubmit={handleSaveUserScenario}>
+              <label className="sr-only" htmlFor="saved-scenario-title">Scenario name</label>
+              <input
+                id="saved-scenario-title"
+                type="text"
+                value={scenarioTitle}
+                onChange={(event) => setScenarioTitle(event.target.value)}
+                placeholder="Name this scenario"
+                maxLength={60}
+                required
+              />
+              <button className="export-button" type="submit" disabled={savingScenario || !scenarioTitle.trim()}>
+                {savingScenario ? 'Saving…' : 'Save current scenario'}
+              </button>
+            </form>
+            {currentSavedScenarioError && (
+              <p className="saved-scenario-error" role="alert">{currentSavedScenarioError}</p>
+            )}
+            {savedScenariosLoading || savedScenariosUserId !== user.uid ? (
+              <p className="saved-scenarios-empty" role="status">Loading your scenarios…</p>
+            ) : currentSavedScenarioError ? null : visibleSavedScenarios.length > 0 ? (
+              <ul className="saved-scenario-list">
+                {visibleSavedScenarios.map((savedScenario) => (
+                  <li className="saved-scenario-item" key={savedScenario.id}>
+                    <div>
+                      <strong>{savedScenario.title}</strong>
+                      <span>
+                        {savedScenario.createdAt?.toDate
+                          ? savedScenario.createdAt.toDate().toLocaleString()
+                          : 'Saved just now'}
+                      </span>
+                      <small>
+                        {savedScenario.inputs.rainfallMm} mm rain · {savedScenario.inputs.blockage}% blockage
+                      </small>
+                    </div>
+                    <div className="saved-scenario-actions">
+                      <button className="preset-button" type="button" onClick={() => loadUserScenario(savedScenario)}>
+                        Load
+                      </button>
+                      <button
+                        className="saved-scenario-delete"
+                        type="button"
+                        onClick={() => deleteUserScenario(savedScenario.id)}
+                        aria-label={`Delete ${savedScenario.title}`}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="saved-scenarios-empty">No saved scenarios yet. Save the current assumptions to return to them later.</p>
+            )}
+          </>
+        ) : (
+          <p className="saved-scenarios-empty">Your current demo remains available without an account; sign in when you want private cloud saves.</p>
+        )}
+      </section>
 
       <div className="simulation-summary" aria-label="Scenario summary">
         <div className="summary-card">

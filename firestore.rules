@@ -1,0 +1,45 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    function validScenario() {
+      let data = request.resource.data;
+      let inputs = data.inputs;
+      return data.keys().hasAll(['title', 'inputs', 'createdAt'])
+        && data.keys().hasOnly(['title', 'inputs', 'createdAt'])
+        && data.title is string
+        && data.title.size() > 0
+        && data.title.size() <= 60
+        && data.createdAt is timestamp
+        && inputs is map
+        && inputs.keys().hasAll(['rainfallMm', 'drainAvailability', 'blockage', 'saturation'])
+        && inputs.keys().hasOnly(['rainfallMm', 'drainAvailability', 'blockage', 'saturation'])
+        && inputs.rainfallMm is number
+        && inputs.rainfallMm >= 0
+        && inputs.rainfallMm <= 240
+        && inputs.drainAvailability is number
+        && inputs.drainAvailability >= 0
+        && inputs.drainAvailability <= 100
+        && inputs.blockage is number
+        && inputs.blockage >= 0
+        && inputs.blockage <= 100
+        && inputs.saturation is number
+        && inputs.saturation >= 0
+        && inputs.saturation <= 100;
+    }
+
+    match /users/{userId}/scenarios/{scenarioId} {
+      allow read, delete: if isOwner(userId);
+      allow create: if isOwner(userId) && validScenario();
+      allow update: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

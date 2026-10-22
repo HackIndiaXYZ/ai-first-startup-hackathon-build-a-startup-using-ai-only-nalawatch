@@ -11,6 +11,17 @@ describe('App', () => {
     expect(screen.getByRole('link', { name: /open dashboard/i })).toHaveAttribute('href', '#simulator');
   });
 
+  it('shows the Firebase setup steps from the sign-in dialog when credentials are not configured', () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole('button', { name: /^sign in$/i }));
+    expect(screen.getByRole('dialog', { name: /welcome back/i })).toBeInTheDocument();
+    expect(screen.getByText(/authentication setup required/i)).toBeInTheDocument();
+    expect(screen.getByText(/\.env\.local/i)).toBeInTheDocument();
+    fireEvent.keyDown(window, { key: 'Escape' });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
   it('shows the dashboard before the supporting product sections', () => {
     render(<App />);
 
