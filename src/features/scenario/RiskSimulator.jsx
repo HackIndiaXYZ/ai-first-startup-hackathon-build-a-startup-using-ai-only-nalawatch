@@ -4,8 +4,8 @@ import {
   SCENARIO_PRESETS,
   simulateCityScenario,
 } from './floodRisk.js';
-import WeatherContext from './WeatherContext.jsx';
-import { useAuth } from '../auth/FirebaseAuthContext.jsx';
+import WeatherContext from '../weather/WeatherContext.jsx';
+import { useAuth } from '../../auth/FirebaseAuthContext.jsx';
 
 const controls = [
   {

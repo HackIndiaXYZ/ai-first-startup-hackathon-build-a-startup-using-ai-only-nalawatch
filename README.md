@@ -21,6 +21,22 @@ npm run dev
 
 Open the local URL printed by Vite (normally http://localhost:5173).
 
+## Project structure
+
+```text
+src/
+  App.jsx, main.jsx          App composition and browser entry point
+  auth/                      Firebase authentication and private scenario persistence
+  components/                Shared account and contact UI
+  features/
+    scenario/                Scenario simulator and synthetic bucket-model logic
+    weather/                 Opt-in rainfall forecast UI and data parsing
+  styles/                    Global responsive application styles
+pitch-deck/                  Hackathon pitch presentation
+```
+
+Feature-specific tests live beside their feature modules; app-level and shared-component tests live beside the app and shared components. Keep weather fetching, scenario calculations, and presentation components in their respective feature folders so their responsibilities remain easy to find.
+
 ## Authentication and private scenario saves
 
 Sign-in supports Google and email/password through Firebase Authentication. Signed-in users can save, load, and delete their scenario inputs in a Firestore path scoped to their Firebase user ID. Weather forecasts, comparison baselines, and simulator history are not saved with these records. Anonymous visitors can still use the simulator without signing in.

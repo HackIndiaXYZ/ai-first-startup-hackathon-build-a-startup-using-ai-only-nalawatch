@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import AccountControl from './components/AccountControl.jsx';
 import ContactForm from './components/ContactForm.jsx';
-import RiskSimulator from './components/RiskSimulator.jsx';
+import RiskSimulator from './features/scenario/RiskSimulator.jsx';
 import { AuthProvider } from './auth/FirebaseAuthContext.jsx';
 
 const metrics = [
