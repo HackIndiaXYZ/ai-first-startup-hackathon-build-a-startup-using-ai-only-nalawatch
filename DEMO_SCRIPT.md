@@ -15,7 +15,7 @@ Target runtime: about 3 minutes 45 seconds. Record the deployed app after deploy
 1. Open the deployed app and point out the explicit prototype limitation notice.
 2. Scroll to the scenario sandbox and select a city in the optional weather context.
 3. Load the hourly precipitation forecast and point out the source, update time, and next-three-hour total. Apply that profile to the demo.
-4. Explain that this is weather context—not a flood prediction. Save a comparison baseline, apply the intense cloudburst preset, and inspect the ward-by-ward change table.
+4. Explain that this is weather context—not a flood prediction. Sort neighbourhoods by scenario index to scan the board, then save a comparison baseline, apply the intense cloudburst preset, and inspect the ward-by-ward change table.
 5. Select a neighbourhood and compare its six-hour ponding proxy and sensitivity perturbation. Clarify that scenario-index changes are not measured flood-probability changes.
 6. Explain the deterministic toy model’s fictional values, then show research notes and the data/validation requirements of a real pilot.
 

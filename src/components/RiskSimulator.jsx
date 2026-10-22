@@ -140,6 +140,7 @@ function RiskSimulator() {
   const [scenario, setScenario] = useState(DEFAULT_SCENARIO);
   const [activeForecast, setActiveForecast] = useState(null);
   const [comparisonBaseline, setComparisonBaseline] = useState(null);
+  const [prioritySort, setPrioritySort] = useState(false);
   const forecastProfile = useMemo(
     () => activeForecast?.hours.map((hour) => hour.precipitationMm) ?? null,
     [activeForecast],
@@ -158,6 +159,9 @@ function RiskSimulator() {
   const [selectedWardId, setSelectedWardId] = useState(result.highestPriorityWard.id);
   const selectedWard =
     result.wards.find((ward) => ward.id === selectedWardId) ?? result.highestPriorityWard;
+  const displayedWards = prioritySort
+    ? [...result.wards].sort((first, second) => second.score - first.score)
+    : result.wards;
 
   function updateScenario(key, value) {
     setScenario((current) => ({ ...current, [key]: value }));
@@ -277,10 +281,20 @@ function RiskSimulator() {
               <span className="result-label">Schematic · not a geographic map</span>
               <h4 id="ward-board-title">Neighbourhood scenario board</h4>
             </div>
-            <span className="map-legend"><i aria-hidden="true" /> Higher index</span>
+            <div className="ward-board-actions">
+              <span className="map-legend"><i aria-hidden="true" /> Higher index</span>
+              <button
+                className="sort-button"
+                type="button"
+                onClick={() => setPrioritySort((current) => !current)}
+                aria-pressed={prioritySort}
+              >
+                {prioritySort ? 'Default order' : 'Highest index first'}
+              </button>
+            </div>
           </div>
           <div className="ward-grid" role="group" aria-label="Select a synthetic neighbourhood">
-            {result.wards.map((ward) => (
+            {displayedWards.map((ward) => (
               <button
                 type="button"
                 key={ward.id}
@@ -292,6 +306,9 @@ function RiskSimulator() {
                 <span className="ward-id">{ward.id}</span>
                 <strong>{ward.name}</strong>
                 <span className="ward-score">{ward.score}<small> / 100</small></span>
+                <span className="ward-score-track" aria-hidden="true">
+                  <span style={{ width: `${ward.score}%` }} />
+                </span>
                 <span className="ward-level">{ward.level} scenario</span>
               </button>
             ))}

@@ -32,6 +32,8 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: /neighbourhood scenario board/i })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /simulated ponding proxy/i })).toBeInTheDocument();
     expect(screen.getByText(/not a probability or confidence interval/i)).toBeInTheDocument();
+    expect(screen.getByRole('group', { name: /select a synthetic neighbourhood/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /highest index first/i })).toHaveAttribute('aria-pressed', 'false');
 
     fireEvent.change(screen.getByLabelText(/estimated blockage/i), { target: { value: '100' } });
     expect(screen.getByLabelText(/estimated blockage/i)).toHaveValue('100');
@@ -42,6 +44,15 @@ describe('App', () => {
 
     fireEvent.click(screen.getByRole('button', { name: /old town, scenario index/i }));
     expect(screen.getByRole('heading', { name: /old town \(w-03\)/i })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: /highest index first/i }));
+    expect(screen.getByRole('button', { name: /default order/i })).toHaveAttribute('aria-pressed', 'true');
+    const sortedScores = screen
+      .getAllByRole('button', { name: /scenario index/i })
+      .map((tile) => Number(tile.getAttribute('aria-label').match(/scenario index (\d+)/i)[1]));
+    expect(sortedScores).toEqual([...sortedScores].sort((first, second) => second - first));
+    fireEvent.click(screen.getByRole('button', { name: /default order/i }));
+    expect(screen.getByRole('button', { name: /highest index first/i })).toHaveAttribute('aria-pressed', 'false');
   });
 
   it('compares the current scenario with a saved baseline', () => {
