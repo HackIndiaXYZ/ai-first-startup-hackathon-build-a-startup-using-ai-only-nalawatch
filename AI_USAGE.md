@@ -28,12 +28,14 @@ These are selected verbatim user-prompt excerpts available in the conversation h
 6. “In dashboard UI/UX is not ok and also why skip to content there, please upgrade the project and also UI/UX”
 7. “Scince I can not think I can win first prize”
 8. “Do that all by yourself”
+9. “Scince I can not think I get 1st prize so make it such that all experience all gather by dashboard not just informetion written in dashboard”
 
 ## Work areas accelerated with AI
 
 - Problem framing, user-facing narrative, and product workflow
 - React component and responsive interface implementation
 - Scenario-baseline comparison interaction and responsive dashboard refinements
+- Six-hour interactive scenario playback and user-built tabletop discussion briefs
 - Proposed Mumbai pilot framing, visible source-boundary disclosures, and a judge-ready walkthrough
 - Optional external weather-context integration, source attribution, and failure-state handling
 - Heuristic function and boundary-case tests

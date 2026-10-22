@@ -29,7 +29,7 @@ const featureCards = [
   },
   {
     title: 'Preparedness discussion prompts',
-    description: 'Use transparent prompts to discuss field verification and data needs. The prototype does not dispatch crews or send alerts.',
+    description: 'Select tabletop tasks and build a scenario-specific discussion brief inside the dashboard. Nothing is dispatched or sent as an alert.',
     accent: 'spark',
   },
 ];
@@ -37,8 +37,8 @@ const featureCards = [
 const workflow = [
   'Start with Mumbai rainfall context from Open-Meteo, or keep the rainfall fully synthetic.',
   'Compare six fictional neighbourhoods with different surface, low-point, drainage, and exposure assumptions.',
-  'Inspect the simplified hourly ponding proxy and how its inputs shape the scenario index.',
-  'Review which permissioned local data a proposed Mumbai pilot would need before a shadow-mode evaluation.',
+  'Play or scrub through six scenario hours and watch the selected neighbourhood timeline update.',
+  'Choose tabletop discussion tasks and build a brief from the selected scenario, hour, and neighbourhood.',
 ];
 
 const useCases = [

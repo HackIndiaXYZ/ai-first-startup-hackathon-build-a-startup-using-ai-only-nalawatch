@@ -93,4 +93,23 @@ describe('App', () => {
     fireEvent.click(screen.getByRole('button', { name: /clear comparison/i }));
     expect(screen.queryByRole('region', { name: /current scenario vs saved baseline/i })).not.toBeInTheDocument();
   });
+
+  it('lets a user scrub the timeline and build a scenario-specific tabletop brief', () => {
+    render(<App />);
+
+    fireEvent.change(screen.getByLabelText(/simulation hour/i), { target: { value: '4' } });
+    expect(screen.getByRole('status', { name: /simulation readout/i })).toHaveTextContent(/hour 4 of 6/i);
+
+    const buildBriefButton = screen.getByRole('button', { name: /build exercise brief/i });
+    expect(buildBriefButton).toBeDisabled();
+    fireEvent.click(screen.getByRole('button', { name: /review drain inspection priorities/i }));
+    expect(buildBriefButton).toBeEnabled();
+    fireEvent.click(buildBriefButton);
+
+    const brief = screen.getByRole('status', { name: /generated exercise brief/i });
+    expect(brief).toHaveTextContent(/hour 4/i);
+    expect(brief).toHaveTextContent(/scenario index \d+\/100/i);
+    expect(brief).toHaveTextContent(/review drain inspection priorities/i);
+    expect(brief).toHaveTextContent(/not a flood prediction or public warning/i);
+  });
 });

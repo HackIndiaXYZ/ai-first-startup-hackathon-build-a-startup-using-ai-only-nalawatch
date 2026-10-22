@@ -42,6 +42,29 @@ const controls = [
   },
 ];
 
+const tabletopActions = [
+  {
+    id: 'verify-reports',
+    title: 'Verify against local reports',
+    description: 'Discuss what dated, permissioned observations would confirm or contradict this scenario.',
+  },
+  {
+    id: 'drain-review',
+    title: 'Review drain inspection priorities',
+    description: 'Identify what a local team would need to verify before prioritising any inspection.',
+  },
+  {
+    id: 'access-review',
+    title: 'Discuss access and traffic contingencies',
+    description: 'Consider who would confirm local access conditions and communicate through approved channels.',
+  },
+  {
+    id: 'data-follow-up',
+    title: 'Assign a data-validation follow-up',
+    description: 'Name the partner, data permission, and validation question needed for a future shadow test.',
+  },
+];
+
 function ScenarioInput({ control, value, onChange }) {
   return (
     <div className="scenario-input">
@@ -88,7 +111,7 @@ function getPlanningChecks(level) {
   ];
 }
 
-function downloadScenario(scenario, result, selectedWard, activeForecast) {
+function downloadScenario(scenario, result, selectedWard, activeForecast, tabletopBrief) {
   const report = {
     product: 'NalaWatch synthetic flood scenario sandbox',
     createdAt: new Date().toISOString(),
@@ -107,6 +130,7 @@ function downloadScenario(scenario, result, selectedWard, activeForecast) {
     },
     scenario,
     selectedWard,
+    tabletopBrief,
     wardResults: result.wards.map((ward) => ({
       id: ward.id,
       name: ward.name,
@@ -148,6 +172,10 @@ function RiskSimulator() {
   const [activeForecast, setActiveForecast] = useState(null);
   const [comparisonBaseline, setComparisonBaseline] = useState(null);
   const [prioritySort, setPrioritySort] = useState(false);
+  const [simulationHour, setSimulationHour] = useState(1);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [selectedTabletopActions, setSelectedTabletopActions] = useState([]);
+  const [tabletopBrief, setTabletopBrief] = useState(null);
   const [savedScenarios, setSavedScenarios] = useState([]);
   const [savedScenariosUserId, setSavedScenariosUserId] = useState(null);
   const [scenarioTitle, setScenarioTitle] = useState('');
@@ -207,13 +235,26 @@ function RiskSimulator() {
     };
   }, [listUserScenarios, user]);
 
+  useEffect(() => {
+    if (!isPlaying) return undefined;
+
+    const timer = window.setTimeout(() => {
+      setSimulationHour((hour) => Math.min(result.rainfallTimeline.length, hour + 1));
+      if (simulationHour >= result.rainfallTimeline.length - 1) setIsPlaying(false);
+    }, 850);
+    return () => window.clearTimeout(timer);
+  }, [isPlaying, result.rainfallTimeline.length, simulationHour]);
+
   function updateScenario(key, value) {
     setScenario((current) => ({ ...current, [key]: value }));
+    setIsPlaying(false);
   }
 
   function applyPreset(name) {
     setScenario(SCENARIO_PRESETS[name]);
     setActiveForecast(null);
+    setSimulationHour(1);
+    setIsPlaying(false);
     setSelectedWardId('W-02');
   }
 
@@ -226,7 +267,36 @@ function RiskSimulator() {
       rainfallMm: Math.min(240, Math.round(rainfallMm * 10) / 10),
     }));
     setActiveForecast(forecast);
+    setSimulationHour(1);
+    setIsPlaying(false);
     setSelectedWardId('W-02');
+  }
+
+  function toggleTabletopAction(actionId) {
+    setSelectedTabletopActions((current) =>
+      current.includes(actionId)
+        ? current.filter((selectedId) => selectedId !== actionId)
+        : [...current, actionId],
+    );
+  }
+
+  function buildTabletopBrief() {
+    const rainfallAtHour = result.rainfallTimeline[simulationHour - 1];
+    const pondingAtHour = selectedWard.hourly[simulationHour - 1];
+    setTabletopBrief({
+      wardName: selectedWard.name,
+      wardId: selectedWard.id,
+      scenarioIndex: selectedWard.score,
+      level: selectedWard.level,
+      hour: simulationHour,
+      rainfallMm: rainfallAtHour.rainfallMm,
+      pondingMm: pondingAtHour.pondingMm,
+      scenario: { ...scenario },
+      weatherContext: activeForecast
+        ? `${activeForecast.source} hourly rainfall · ${activeForecast.city.name}`
+        : 'Synthetic rainfall profile',
+      actions: tabletopActions.filter((action) => selectedTabletopActions.includes(action.id)),
+    });
   }
 
   function saveComparisonBaseline() {
@@ -286,6 +356,8 @@ function RiskSimulator() {
 
   const maxRainfall = Math.max(1, ...result.rainfallTimeline.map((point) => point.rainfallMm));
   const maxPonding = Math.max(1, ...selectedWard.hourly.map((point) => point.pondingMm));
+  const currentRainfall = result.rainfallTimeline[simulationHour - 1];
+  const currentPonding = selectedWard.hourly[simulationHour - 1];
 
   return (
     <section className="risk-simulator" aria-labelledby="simulator-title">
@@ -301,6 +373,12 @@ function RiskSimulator() {
         <span className="data-badge">Simulation only · not a forecast or alert</span>
       </div>
 
+      <nav className="exercise-steps" aria-label="Dashboard exercise steps">
+        <a href="#scenario-controls-title"><span>01</span> Set a scenario</a>
+        <a href="#simulation-timeline-title"><span>02</span> Play the timeline</a>
+        <a href="#tabletop-title"><span>03</span> Build a tabletop brief</a>
+      </nav>
+
       <div className="scenario-toolbar">
         <div className="scenario-presets" role="group" aria-label="Load a demonstration scenario">
           {Object.keys(SCENARIO_PRESETS).map((name) => (
@@ -312,9 +390,9 @@ function RiskSimulator() {
         <button
           className="export-button"
           type="button"
-          onClick={() => downloadScenario(scenario, result, selectedWard, activeForecast)}
+          onClick={() => downloadScenario(scenario, result, selectedWard, activeForecast, tabletopBrief)}
         >
-          Download scenario data
+          {tabletopBrief ? 'Download scenario + brief' : 'Download scenario data'}
         </button>
         <button className="preset-button" type="button" onClick={saveComparisonBaseline}>
           {comparisonBaseline ? 'Update comparison baseline' : 'Save current as comparison baseline'}
@@ -506,7 +584,10 @@ function RiskSimulator() {
                 type="button"
                 key={ward.id}
                 className={`ward-tile risk-${ward.level.toLowerCase()} ${ward.id === selectedWard.id ? 'selected' : ''}`}
-                onClick={() => setSelectedWardId(ward.id)}
+                onClick={() => {
+                  setSelectedWardId(ward.id);
+                  setIsPlaying(false);
+                }}
                 aria-pressed={ward.id === selectedWard.id}
                 aria-label={`${ward.name}, scenario index ${ward.score} out of 100, ${ward.level}`}
               >
@@ -547,7 +628,7 @@ function RiskSimulator() {
               aria-label={`Assumed hourly rainfall: ${result.rainfallTimeline.map((point) => `hour ${point.hour}, ${point.rainfallMm} millimetres`).join('; ')}`}
             >
               {result.rainfallTimeline.map((point) => (
-                <div className="chart-column" key={point.hour}>
+                <div className={`chart-column ${point.hour === simulationHour ? 'is-current' : ''}`} key={point.hour}>
                   <span className="chart-value">{point.rainfallMm}</span>
                   <span className="chart-bar" style={{ height: `${Math.max(3, (point.rainfallMm / maxRainfall) * 100)}%` }} />
                   <span className="chart-axis">H{point.hour}</span>
@@ -569,7 +650,7 @@ function RiskSimulator() {
               aria-label={`Synthetic ponding depth in millimetres: ${selectedWard.hourly.map((point) => `hour ${point.hour}, ${point.pondingMm}`).join('; ')}`}
             >
               {selectedWard.hourly.map((point) => (
-                <div className="chart-column" key={point.hour}>
+                <div className={`chart-column ${point.hour === simulationHour ? 'is-current' : ''}`} key={point.hour}>
                   <span className="chart-value">{point.pondingMm}</span>
                   <span className="chart-bar" style={{ height: `${Math.max(3, (point.pondingMm / maxPonding) * 100)}%` }} />
                   <span className="chart-axis">H{point.hour}</span>
@@ -579,6 +660,61 @@ function RiskSimulator() {
             <p>Peak {selectedWard.peakPondingMm} mm at hour {selectedWard.peakHour}; a simplified scenario output, not a measured depth.</p>
           </div>
         </div>
+
+        <section className="simulation-timeline" aria-labelledby="simulation-timeline-title">
+          <div className="timeline-heading">
+            <div>
+              <span className="result-label">Interactive time-lapse · six synthetic hours</span>
+              <h5 id="simulation-timeline-title">Play or scrub through this scenario</h5>
+            </div>
+            <button
+              className="export-button"
+              type="button"
+              onClick={() => {
+                if (isPlaying) {
+                  setIsPlaying(false);
+                } else {
+                  if (simulationHour >= result.rainfallTimeline.length) setSimulationHour(1);
+                  setIsPlaying(true);
+                }
+              }}
+            >
+              {isPlaying ? 'Pause timeline' : simulationHour >= result.rainfallTimeline.length ? 'Replay 6-hour scenario' : 'Play 6-hour scenario'}
+            </button>
+          </div>
+          <div className="timeline-readout" role="status" aria-label="Simulation readout" aria-live="polite">
+            <strong>Hour {simulationHour} of {result.rainfallTimeline.length}</strong>
+            <span>{currentRainfall.rainfallMm} mm scenario rain</span>
+            <span>{currentPonding.pondingMm} mm synthetic ponding proxy · {selectedWard.name}</span>
+          </div>
+          <div className="timeline-scrubber">
+            <label htmlFor="simulation-hour">Simulation hour</label>
+            <input
+              id="simulation-hour"
+              type="range"
+              min="1"
+              max={result.rainfallTimeline.length}
+              step="1"
+              value={simulationHour}
+              onChange={(event) => {
+                setSimulationHour(Number(event.target.value));
+                setIsPlaying(false);
+              }}
+            />
+            <button
+              className="sort-button"
+              type="button"
+              onClick={() => {
+                setIsPlaying(false);
+                setSimulationHour((hour) => Math.min(result.rainfallTimeline.length, hour + 1));
+              }}
+              disabled={simulationHour >= result.rainfallTimeline.length || isPlaying}
+            >
+              Next hour
+            </button>
+          </div>
+          <p>Explore how the simplified inputs change over time. This is a tabletop simulation, not a measured event or operational forecast.</p>
+        </section>
 
         <div className="sensitivity-callout">
           <strong>Sensitivity check: {selectedWard.sensitivity.low}–{selectedWard.sensitivity.high} / 100</strong>
@@ -591,6 +727,66 @@ function RiskSimulator() {
             {getPlanningChecks(selectedWard.level).map((check) => <li key={check}>{check}</li>)}
           </ul>
         </div>
+      </section>
+
+      <section className="tabletop-panel" aria-labelledby="tabletop-title">
+        <div className="tabletop-heading">
+          <div>
+            <span className="result-label">Your choices shape the exercise</span>
+            <h4 id="tabletop-title">Build a preparedness tabletop brief</h4>
+            <p>Select discussion tasks for the currently selected synthetic neighbourhood. Nothing is dispatched or shared.</p>
+          </div>
+          <span className="tabletop-selection-count">{selectedTabletopActions.length} selected</span>
+        </div>
+        <div className="tabletop-actions" role="group" aria-label="Choose tabletop discussion tasks">
+          {tabletopActions.map((action) => {
+            const selected = selectedTabletopActions.includes(action.id);
+            return (
+              <button
+                className={`tabletop-action ${selected ? 'selected' : ''}`}
+                key={action.id}
+                type="button"
+                aria-pressed={selected}
+                onClick={() => toggleTabletopAction(action.id)}
+              >
+                <span className="tabletop-action-state">{selected ? 'Selected' : 'Add to exercise'}</span>
+                <strong>{action.title}</strong>
+                <small>{action.description}</small>
+              </button>
+            );
+          })}
+        </div>
+        <div className="tabletop-footer">
+          <p>Discussion prompts only. Confirm conditions with local authorities and field teams; do not use this synthetic result to issue an alert.</p>
+          <button
+            className="export-button"
+            type="button"
+            onClick={buildTabletopBrief}
+            disabled={selectedTabletopActions.length === 0}
+          >
+            {tabletopBrief ? 'Refresh exercise brief' : 'Build exercise brief'}
+          </button>
+        </div>
+        {tabletopBrief && (
+          <div className="tabletop-brief" role="status" aria-label="Generated exercise brief" aria-live="polite">
+            <div>
+              <span className="result-label">Tabletop snapshot · synthetic inputs</span>
+              <h5>{tabletopBrief.wardName} ({tabletopBrief.wardId}) · hour {tabletopBrief.hour}</h5>
+              <p>
+                Scenario index {tabletopBrief.scenarioIndex}/100 ({tabletopBrief.level});{' '}
+                {tabletopBrief.rainfallMm} mm scenario rain; {tabletopBrief.pondingMm} mm simulated ponding proxy.
+              </p>
+              <p>
+                Assumptions: {tabletopBrief.scenario.drainAvailability}% drain capacity, {tabletopBrief.scenario.blockage}% blockage,
+                {' '}{tabletopBrief.scenario.saturation}% saturation. Rain context: {tabletopBrief.weatherContext}.
+              </p>
+            </div>
+            <ul>
+              {tabletopBrief.actions.map((action) => <li key={action.id}>{action.title}</li>)}
+            </ul>
+            <small>For discussion only. Neighbourhoods, index, and ponding are synthetic; this is not a flood prediction or public warning.</small>
+          </div>
+        )}
       </section>
 
       {baselineResult && (
