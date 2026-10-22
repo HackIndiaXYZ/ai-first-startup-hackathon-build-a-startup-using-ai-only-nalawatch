@@ -327,6 +327,50 @@ function RiskSimulator() {
         onRemove={() => setActiveForecast(null)}
       />
 
+      <section className="pilot-readiness" aria-labelledby="pilot-readiness-title">
+        <div className="pilot-readiness-heading">
+          <div>
+            <span className="result-label">Proposed city pilot · partner not yet confirmed</span>
+            <h4 id="pilot-readiness-title">Mumbai: prove the workflow before making a warning</h4>
+            <p>
+              Start with one city-selected pilot area, chosen with civic and hydrology partners. Connect permitted,
+              time-stamped local observations before fitting or evaluating any flood model.
+            </p>
+          </div>
+          <a
+            className="pilot-source-link"
+            href="https://www.mcgm.gov.in/irj/portal/anonymous/qlCivicFloodControl"
+            target="_blank"
+            rel="noreferrer"
+          >
+            MCGM flood-control information ↗
+          </a>
+        </div>
+        <div className="pilot-readiness-grid">
+          <article className="pilot-data-card pilot-data-connected">
+            <span className="pilot-data-status"><i aria-hidden="true" /> Available in demo</span>
+            <h5>Hourly rainfall context</h5>
+            <p>
+              User-requested Open-Meteo forecast for Mumbai. This is weather input only—not a flood forecast.
+            </p>
+          </article>
+          <article className="pilot-data-card">
+            <span className="pilot-data-status pilot-data-pending"><i aria-hidden="true" /> Partner data needed</span>
+            <h5>Ward and drain evidence</h5>
+            <p>Permissioned drain inventory, maintenance/blockage observations, rainfall gauges, and dated waterlogging reports.</p>
+          </article>
+          <article className="pilot-data-card">
+            <span className="pilot-data-status pilot-data-pending"><i aria-hidden="true" /> Independent validation</span>
+            <h5>Shadow-mode evaluation</h5>
+            <p>Compare with held-out rain events; report lead time, missed events, false alarms, and data completeness before operational use.</p>
+          </article>
+        </div>
+        <p className="pilot-data-boundary">
+          Source boundary: only hourly precipitation is fetched in this demo. The MCGM link is for human reference;
+          no MCGM data, gauges, maps, reports, or emergency systems are connected. Ward scores remain fictional.
+        </p>
+      </section>
+
       <section className="saved-scenarios" aria-labelledby="saved-scenarios-title">
         <div className="saved-scenarios-heading">
           <div>

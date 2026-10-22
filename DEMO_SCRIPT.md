@@ -4,28 +4,28 @@ Target runtime: about 3 minutes 45 seconds. Record the deployed app after deploy
 
 ## 0:00–0:25 — Introduce the problem
 
-“Every monsoon, rainfall can overwhelm urban drains and disrupt roads, health, and livelihoods. Teams often have to make decisions with weather, drainage, and local exposure information spread across different places. NalaWatch explores how to bring those signals into one preparedness workflow.”
+“Urban rain events can put pressure on drains, roads, and essential services. Civic teams need usable local evidence—not another unverified risk score. NalaWatch is a prototype exploring how weather context and documented local observations could support a human-led preparedness workflow.”
 
 ## 0:25–0:55 — Explain the approach
 
-“The product vision is to combine weather forecasts, drainage maps and capacity, historical waterlogging, and field observations. The system should show not only a risk level, but also its inputs, data freshness, uncertainty, and suggested checks.”
+“We propose Mumbai as our first pilot city to investigate, but we do not have a city partner or city drainage feed yet. Our current demo connects only to an optional public hourly rainfall forecast. Every ward and flood-risk index on screen is synthetic.”
 
 ## 0:55–2:15 — Demonstrate the working prototype
 
-1. Open the deployed app and point out the explicit prototype limitation notice.
-2. Scroll to the scenario sandbox and select a city in the optional weather context.
-3. Load the hourly precipitation forecast and point out the source, update time, and next-three-hour total. Apply that profile to the demo.
-4. Explain that this is weather context—not a flood prediction. Sort neighbourhoods by scenario index to scan the board, then save a comparison baseline, apply the intense cloudburst preset, and inspect the ward-by-ward change table.
-5. Select a neighbourhood and compare its six-hour ponding proxy and sensitivity perturbation. Clarify that scenario-index changes are not measured flood-probability changes.
-6. Explain the deterministic toy model’s fictional values, then show research notes and the data/validation requirements of a real pilot.
+1. Open the app. Point out “Mumbai pilot candidate” and that a partner has not been confirmed.
+2. In the Mumbai pilot lens, load the hourly rainfall forecast. Show its Open-Meteo source, retrieval time, and three-hour total. Explain that this is city-level weather context only.
+3. Select **Use rainfall in scenario**. Show how this changes the input profile—not a real flood prediction.
+4. On the neighbourhood board, sort by scenario index and select a synthetic neighbourhood. Point out the fictional-data disclosure and explain that the number is not a probability.
+5. Save a comparison baseline, apply **Intense cloudburst**, and inspect the change table. Explain that both scenarios use fictional drainage and exposure assumptions.
+6. Show the pilot readiness cards: rainfall context is available; ward/drain records require permission and a partner; independent shadow-mode event validation is still required.
 
 ## 2:15–3:05 — Explain validation and safety
 
-“Our next step is a supervised pilot with one city partner. We would test in shadow mode against held-out historical events and field observations, measuring lead time, false alerts, missed events, and data freshness before any operational use.”
+“Our next step is not to announce a prediction. It is to find a Mumbai civic and hydrology partner, agree on one pilot ward and permitted data, and test a baseline in shadow mode against held-out rainfall events. We will report lead time, missed events, false alarms, and data completeness before anyone considers operational use.”
 
 ## 3:05–3:40 — Close with the ask
 
-“We are seeking incubation support, urban hydrology expertise, and a city partner willing to define a safe, data-permitted pilot. NalaWatch aims to help response teams prepare earlier, with evidence and human oversight.”
+“We are seeking incubation support, an introduction to a Mumbai civic or research partner, help choosing a narrow pilot question, and urban-hydrology expertise. NalaWatch will earn trust through evidence and human oversight—not claims the prototype cannot support.”
 
 ## Recording checklist
 

@@ -9,7 +9,7 @@ function formatHour(value) {
 }
 
 export default function WeatherContext({ activeForecast, onApply, onRemove }) {
-  const [cityId, setCityId] = useState(WEATHER_CITIES[0].id);
+  const [cityId, setCityId] = useState('mumbai');
   const [forecast, setForecast] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -39,10 +39,11 @@ export default function WeatherContext({ activeForecast, onApply, onRemove }) {
     <section className="weather-context" aria-labelledby="weather-context-title">
       <div className="weather-context-heading">
         <div>
-          <span className="eyebrow">External weather context · optional</span>
+          <span className="eyebrow">Mumbai pilot lens · rainfall context only</span>
           <h4 id="weather-context-title">Bring a real hourly rain forecast into the scenario</h4>
           <p>
-            Fetches precipitation for a selected city. Weather is not a flood warning; the ward model remains synthetic.
+            Mumbai is a proposed pilot focus, not a confirmed city partnership. Load its public rainfall outlook;
+            the neighbourhoods and flood-risk index below remain synthetic.
           </p>
         </div>
         <div className="weather-controls">

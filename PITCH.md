@@ -27,9 +27,17 @@ It is not a live flood-prediction system: the weather provider supplies precipit
 
 ## Pilot proposal
 
-Start with one consenting municipal partner and a limited set of flood-prone wards. Agree on permitted data and response ownership; combine public weather forecasts, available drainage maps, historical waterlogging reports, and field-verified observations. Run in shadow mode before sending any operational alert.
+### Proposed first city: Mumbai
 
-Evaluate against held-out historical events and field observations. Track lead time, precision/recall by risk threshold, missed events, false alerts, data freshness, and whether responders found the recommendations useful. Do not claim accuracy until this evaluation is complete.
+Mumbai is a **proposed pilot focus**, not a confirmed partnership, data agreement, selected ward, or operational deployment. The prototype defaults to Mumbai because its city-level rainfall forecast is already available as an explicitly requested input. That is the only live Mumbai-specific data in the demo; neighbourhood names, attributes, drainage, exposure, scores, and ponding outputs are fictional.
+
+The [MCGM flood-control information page](https://www.mcgm.gov.in/irj/portal/anonymous/qlCivicFloodControl) and [India Meteorological Department](https://mausam.imd.gov.in/) are links for human reference and official-warning cross-checks—not data feeds connected to NalaWatch. The MCGM page’s availability and any data-access conditions must be confirmed with the city before a pilot; this proposal does not assume an open API or permission.
+
+First ask a municipal and hydrology partner to select one suitable ward and define the question, decision owner, and safe shadow-mode process. Request permissioned, timestamped rainfall-gauge observations; waterlogging/complaint reports with location and event times; storm-water drain maps, capacity and maintenance records; and field-verified observations. Document provenance, spatial coverage, missingness, update cadence, privacy, and reuse terms before ingesting anything.
+
+Build a simple, transparent rainfall-only baseline first; compare any proposed hydrologic or ML extension only after partner data and a defensible evaluation split are available. Evaluate on held-out rain events and locations, with hydrology review and human shadow review. Report lead time, probability of detection, false-alarm ratio, missed events, data freshness/completeness, and performance across wards. Agree on acceptance criteria with the partner before testing; do not present a score or alert to the public until local validation, uncertainty, escalation ownership, and incident procedures are approved.
+
+Have participating responders review the shadow-mode outputs and the proposed escalation workflow; record when data are missing or stale instead of silently substituting values. Do not claim accuracy, alert capability, or operational readiness until the partner-reviewed evaluation and safety process are complete.
 
 ## Business hypothesis
 
@@ -37,4 +45,4 @@ If a pilot demonstrates value, explore annual city subscriptions, implementation
 
 ## Ask
 
-We seek incubation support and a city/research partner for a supervised pilot, access to permitted historical and drainage data, and domain expertise in urban hydrology and emergency operations.
+We seek incubation support, an introduction to a Mumbai civic or research partner, help choosing a narrow pilot question and ward, and domain expertise in urban hydrology and emergency operations. We are not asking a city to rely on this prototype as a warning system.

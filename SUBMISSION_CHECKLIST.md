@@ -9,9 +9,11 @@ Official page: https://hackindia.org/2026/ai-first-startup-hackathon-build-a-sta
 ## Prepared in this repository
 
 - [x] Public-repository code and project docs
-- [x] Interactive browser scenario simulator with synthetic neighbourhoods, transparent assumptions, sensitivity checks, baseline comparison, and limitations
+- [x] Mumbai-first, step-by-step product story with a matching pitch view and 3–5 minute demo script
+- [x] Interactive browser scenario simulator with Mumbai as the default optional rainfall context, synthetic neighbourhoods, transparent assumptions, sensitivity checks, baseline comparison, and limitations
 - [x] Firebase Google/email sign-in integration, account sign-out, private scenario save/load/delete flows, and owner-scoped Firestore rules
 - [x] Optional hourly precipitation forecast context with provider attribution, explicit user-triggered fetch, and clear separation from synthetic flood outputs
+- [x] Mumbai pilot-candidate framing with a source-status register, explicit data gaps, and a partner-led shadow-evaluation plan
 - [x] Focused literature review with verified article metadata and an explicit distinction between research design implications and toy-model parameters
 - [x] Automated lint, unit tests, and production build
 - [x] Pitch narrative and PDF deck
@@ -24,6 +26,7 @@ Official page: https://hackindia.org/2026/ai-first-startup-hackathon-build-a-sta
 - [ ] Confirm all members have registered and team size is within 1–6.
 - [ ] Audit AI usage logs and truthfully verify the 80%+ AI execution requirement; add other actual tools/models/prompts used.
 - [ ] Ask a repository admin to enable GitHub Pages with GitHub Actions as the source (or configure Netlify deployment credentials/use another host), deploy, then verify the public URL in a fresh browser session.
+- [ ] Confirm the latest GitHub Actions build and deployment result, then verify the deployed app in a fresh session. The browser demo is not yet a city-partner pilot.
 - [ ] Create/configure the Firebase project, enable Google and Email/Password sign-in, create Firestore, publish `firestore.rules`, set the `VITE_FIREBASE_*` deployment variables, add authorized domains, and test data isolation with separate accounts.
 - [ ] Record and upload the 3–5 minute demo video; submit its URL.
 - [ ] Upload the public GitHub repository URL, live app URL, video URL, pitch deck, and AI usage report through the official team submission flow.

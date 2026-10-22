@@ -33,9 +33,21 @@ describe('App', () => {
     expect(dashboardIndex).toBeLessThan(productIndex);
   });
 
+  it('presents Mumbai as a proposed, unconfirmed pilot in the pitch view', () => {
+    render(<App />);
+
+    fireEvent.click(screen.getByRole('button', { name: /startup pitch/i }));
+    expect(screen.getByRole('heading', { name: /why mumbai first/i })).toBeInTheDocument();
+    expect(screen.getByText(/not a confirmed partnership or selected ward/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /pilot proof plan/i })).toBeInTheDocument();
+  });
+
   it('renders the transparent synthetic scenario simulator', () => {
     render(<App />);
 
+    expect(screen.getByRole('heading', { name: /mumbai: prove the workflow before making a warning/i })).toBeInTheDocument();
+    expect(screen.getByText(/partner not yet confirmed/i)).toBeInTheDocument();
+    expect(screen.getByText(/no mcgm data, gauges, maps, reports, or emergency systems are connected/i)).toBeInTheDocument();
     expect(
       screen.getByRole('heading', { name: /explore how rainfall and drainage assumptions interact/i }),
     ).toBeInTheDocument();

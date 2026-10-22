@@ -33,7 +33,8 @@ describe('WeatherContext', () => {
     const onRemove = vi.fn();
     render(<WeatherContext activeForecast={null} onApply={onApply} onRemove={onRemove} />);
 
-    fireEvent.change(screen.getByLabelText('City'), { target: { value: 'mumbai' } });
+    expect(screen.getByLabelText('City')).toHaveValue('mumbai');
+    expect(screen.getByText(/mumbai pilot lens/i)).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Load forecast' }));
 
     const applyButton = await screen.findByRole('button', { name: 'Use rainfall in scenario' });
@@ -50,7 +51,7 @@ describe('WeatherContext', () => {
         ]),
       }),
     );
-    expect(onRemove).toHaveBeenCalledOnce();
+    expect(onRemove).not.toHaveBeenCalled();
   });
 
   it('clears stale city data and removes an applied profile when the city changes', async () => {

@@ -8,7 +8,7 @@ The browser demo contains an interactive scenario simulator with synthetic neigh
 
 The comparison baseline is held only in the current browser session and is not uploaded or persisted. It compares illustrative scenario-index values, not observed flood probabilities or safety outcomes.
 
-The research desk review and its limitations are documented in [RESEARCH_NOTES.md](./RESEARCH_NOTES.md). Research shaped the questions and transparency requirements represented by the demo, not its formula or parameter values. The next validation step is a consented pilot with a city partner, documented data sources, historical event data, and field-verified sensor readings. Model performance claims should only be added after a reproducible evaluation.
+The research desk review and its limitations are documented in [RESEARCH_NOTES.md](./RESEARCH_NOTES.md). Mumbai is the proposed pilot focus, not a confirmed city partner, selected ward, or real flood-prediction deployment. The dashboard fetches only opt-in city-level Open-Meteo rainfall context; all ward attributes and flood-scenario outputs remain synthetic. The next validation step is a consented partner-led pilot with permissioned local sources, documented provenance, historical events, field verification, and shadow-mode evaluation. Model performance claims should only be added after a reproducible evaluation.
 
 ## Run locally
 

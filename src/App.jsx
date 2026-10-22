@@ -35,10 +35,10 @@ const featureCards = [
 ];
 
 const workflow = [
-  'Optionally load hourly precipitation context for a selected Indian city, or use a synthetic storm preset.',
+  'Start with Mumbai rainfall context from Open-Meteo, or keep the rainfall fully synthetic.',
   'Compare six fictional neighbourhoods with different surface, low-point, drainage, and exposure assumptions.',
   'Inspect the simplified hourly ponding proxy and how its inputs shape the scenario index.',
-  'Use sensitivity ranges and planning prompts to identify what real field data a future pilot would need.',
+  'Review which permissioned local data a proposed Mumbai pilot would need before a shadow-mode evaluation.',
 ];
 
 const useCases = [
@@ -49,12 +49,12 @@ const useCases = [
 ];
 
 const deckSlides = [
-  { title: 'Problem', text: 'Urban flood preparedness depends on connecting rainfall, drainage, exposed places, and response planning. Local data and validated models are essential.' },
-  { title: 'Concept', text: 'NalaWatch explores how transparent, location-aware scenarios could help civic teams ask better preparedness questions.' },
-  { title: 'Prototype today', text: 'A browser-based, synthetic six-hour scenario sandbox compares six fictional neighbourhoods and explains its assumptions.' },
-  { title: 'Evidence needed', text: 'A responsible pilot requires a city partner, permitted drainage and rainfall data, field verification, and evaluation against historical events.' },
-  { title: 'Potential path', text: 'If a partner validates utility and performance, explore a municipal pilot and sustainable public-sector deployment model.' },
-  { title: 'Ask', text: 'Seeking mentorship and a consented pilot partner to test data availability, workflows, and validation requirements—not operational use.' },
+  { title: 'The gap', text: 'A usable preparedness workflow must connect rain timing to trusted local drainage and incident evidence. Those local evidence feeds are not connected in this prototype.' },
+  { title: 'Why Mumbai first?', text: 'Mumbai is our proposed pilot focus, not a confirmed partnership or selected ward. The demo already supports optional city-level rainfall context here.' },
+  { title: 'Working demo', text: 'Load hourly Mumbai rain, adjust a transparent scenario, compare fictional neighbourhood indices, and inspect each data limitation.' },
+  { title: 'What is real?', text: 'Only the requested Open-Meteo precipitation context is external. Ward attributes, drainage assumptions, scores, and ponding outputs are synthetic.' },
+  { title: 'Pilot proof plan', text: 'Choose one ward with a civic/hydrology partner. Obtain permitted records and test against held-out events in shadow mode before considering operational use.' },
+  { title: 'The ask', text: 'We seek incubation support, a Mumbai civic or research introduction, and hydrology expertise to define a narrow, measurable, safe pilot question.' },
 ];
 
 function PitchDeck() {
@@ -99,11 +99,11 @@ function AppContent() {
       <main id="main-content" tabIndex="-1">
         <section className="hero">
           <div className="hero-copy">
-            <div className="eyebrow">Urban flood preparedness · prototype</div>
+            <div className="eyebrow">Mumbai pilot candidate · prototype</div>
             <h1>Explore flood scenarios before the storm.</h1>
             <p>
-              NalaWatch is an interactive flood scenario sandbox. It pairs optional public rainfall forecast context
-              with explicit synthetic assumptions for drainage, ground saturation, and neighbourhood exposure.
+              Start with Mumbai’s hourly rainfall context, inspect how assumptions shape a transparent scenario,
+              and see exactly which local evidence a future city pilot would still need.
             </p>
 
             <div className="hero-actions">
@@ -112,7 +112,7 @@ function AppContent() {
             </div>
 
             <div className="mini-trust">
-              <span>Prototype only. Forecast rain is context, not a flood warning; drainage and neighbourhood data are synthetic.</span>
+              <span>Pilot proposed, not partner-approved. Rain is weather context; neighbourhoods and flood index are synthetic.</span>
             </div>
 
             <div className="hero-list">

@@ -12,6 +12,23 @@ function makePayload(startAt = '2026-10-22T00:00:00Z') {
 }
 
 describe('fetchHourlyPrecipitation', () => {
+  it('provides the Mumbai pilot rainfall context at its published preset coordinates', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => makePayload(),
+    });
+
+    const forecast = await fetchHourlyPrecipitation('mumbai', {
+      fetchImpl,
+      now: new Date('2026-10-22T02:30:00Z'),
+    });
+
+    const requestUrl = new URL(fetchImpl.mock.calls[0][0]);
+    expect(requestUrl.searchParams.get('latitude')).toBe('19.076');
+    expect(requestUrl.searchParams.get('longitude')).toBe('72.8777');
+    expect(forecast.city.name).toBe('Mumbai');
+  });
+
   it('requests six upcoming hourly values for the selected city', async () => {
     const fetchImpl = vi.fn().mockResolvedValue({
       ok: true,

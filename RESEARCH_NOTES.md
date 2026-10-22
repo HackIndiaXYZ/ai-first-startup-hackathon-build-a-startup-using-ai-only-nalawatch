@@ -36,6 +36,22 @@ The app optionally retrieves hourly precipitation context from Open-Meteo after 
 4. Split evaluation by event and time to avoid leakage. Report lead time, hit rate, false alarms, missed events, calibration/uncertainty, and performance across locations—not only aggregate accuracy.
 5. Run a shadow evaluation with human review before any warning workflow. Define escalation, accessibility, language, outage, and safety procedures before operational use.
 
+## Proposed Mumbai pilot and source boundary
+
+Mumbai is the current *proposed pilot focus* because it is available as a city preset for the demo's public rainfall-context request. This is a product scoping decision—not a conclusion that a particular ward has the highest risk, that the city has agreed to partner, or that local flood/drainage data are accessible. The initial pilot ward must be chosen with a consenting civic and hydrology partner.
+
+| Evidence | Current status in the prototype | Next responsible step |
+|---|---|---|
+| Open-Meteo hourly precipitation for the Mumbai city coordinate | Connected only after the user requests it; weather context, not a NalaWatch flood prediction | Keep provider, retrieval time, license/terms, and the rainfall-versus-flood distinction visible |
+| Municipal Corporation of Greater Mumbai flood-control information ([MCGM reference](https://www.mcgm.gov.in/irj/portal/anonymous/qlCivicFloodControl)) | Linked for a human to consult; no content ingestion, API, or permission is claimed | Verify availability and terms with MCGM; request an authorized source and data steward |
+| India Meteorological Department ([IMD](https://mausam.imd.gov.in/)) official observations/advisories | Official reference for human cross-checks; not connected to the app | Agree which official product and issue-time should be used in any future workflow |
+| Ward boundaries, storm-water network/capacity, gauges, maintenance/blockage observations, and dated waterlogging reports | Not present; demo wards and their attributes are fictional | Select the pilot area with the partner; document provenance, access permission, coverage, missingness, cadence, and retention |
+| Flood model and warning performance | Not implemented or evaluated | Establish a rainfall-only baseline, then evaluate any model on held-out events and locations in shadow mode; agree success criteria before testing |
+
+The current source behavior is intentionally small: forecast retrieval is explicit user action; only city coordinates are sent to Open-Meteo; no municipal records are fetched. The civic and IMD links support people checking official sources and do not mean NalaWatch ingests or republishes those sources. Their accessibility, service terms, and applicable data permissions must be checked by the pilot partner before use.
+
+Suggested pilot evaluation includes lead time, probability of detection, false-alarm ratio, missed-event analysis, calibration where a probabilistic model is eventually justified, data freshness/completeness, and partner review of the human workflow. Stratify by held-out event and location to avoid overstatement from a random record-level split. Report no performance claims until the protocol, ground truth, and results are reproducible.
+
 ## Research metadata sources
 
 - OpenAlex records used to check article titles, years, author lists, venues, and DOI: [Bulti & Abebe](https://api.openalex.org/works/https://doi.org/10.1007/s40808-020-00803-z), [Mosavi et al.](https://api.openalex.org/works/https://doi.org/10.3390/w10111536), [Sañudo et al.](https://api.openalex.org/works/https://doi.org/10.3390/w12092647), [Manandhar et al.](https://api.openalex.org/works/https://doi.org/10.3390/land12030627), and [Sahoo et al.](https://api.openalex.org/works/https://doi.org/10.1061/ajrua6.0000822).

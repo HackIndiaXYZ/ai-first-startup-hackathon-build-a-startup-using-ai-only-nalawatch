@@ -1975,6 +1975,105 @@ section {
   background: linear-gradient(135deg, rgba(17, 49, 69, 0.74), rgba(12, 23, 37, 0.88));
 }
 
+.pilot-readiness {
+  margin-bottom: 18px;
+  padding: 20px;
+  border: 1px solid rgba(151, 172, 219, 0.17);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(15, 31, 47, 0.92), rgba(10, 21, 34, 0.8));
+}
+
+.pilot-readiness-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.pilot-readiness-heading h4 {
+  margin: 4px 0 6px;
+  font-size: 1.15rem;
+}
+
+.pilot-readiness-heading p {
+  max-width: 720px;
+  margin: 0;
+  color: #aebfda;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.pilot-source-link {
+  flex: 0 0 auto;
+  color: #9ee7ff;
+  font-size: 0.78rem;
+  font-weight: 650;
+  text-underline-offset: 3px;
+}
+
+.pilot-readiness-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.pilot-data-card {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid rgba(151, 172, 219, 0.13);
+  border-radius: 13px;
+  background: rgba(5, 14, 25, 0.48);
+}
+
+.pilot-data-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #8debc3;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pilot-data-status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #64ddb0;
+  box-shadow: 0 0 9px rgba(100, 221, 176, 0.55);
+}
+
+.pilot-data-status.pilot-data-pending {
+  color: #ffd58b;
+}
+
+.pilot-data-status.pilot-data-pending i {
+  background: #ffc857;
+  box-shadow: 0 0 9px rgba(255, 200, 87, 0.42);
+}
+
+.pilot-data-card h5 {
+  margin: 10px 0 5px;
+  color: #eaf1ff;
+  font-size: 0.88rem;
+}
+
+.pilot-data-card p {
+  margin: 0;
+  color: #9fb2d1;
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+
+.pilot-data-boundary {
+  margin: 12px 0 0;
+  color: #8fa8ca;
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
 .weather-context-heading,
 .weather-results-heading,
 .weather-actions {
@@ -2174,6 +2273,10 @@ section {
     grid-template-columns: 1fr;
   }
 
+  .pilot-readiness-grid {
+    grid-template-columns: 1fr;
+  }
+
   .simulation-summary {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -2301,6 +2404,10 @@ section {
   .weather-results-heading,
   .weather-actions {
     align-items: stretch;
+    flex-direction: column;
+  }
+
+  .pilot-readiness-heading {
     flex-direction: column;
   }
 
