@@ -43,4 +43,20 @@ describe('App', () => {
     fireEvent.click(screen.getByRole('button', { name: /old town, scenario index/i }));
     expect(screen.getByRole('heading', { name: /old town \(w-03\)/i })).toBeInTheDocument();
   });
+
+  it('compares the current scenario with a saved baseline', () => {
+    render(<App />);
+
+    expect(screen.queryByRole('region', { name: /current scenario vs saved baseline/i })).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /save current as comparison baseline/i }));
+    expect(screen.getByRole('region', { name: /current scenario vs saved baseline/i })).toBeInTheDocument();
+    expect(screen.getByText(/synthetic rainfall profile/i)).toBeInTheDocument();
+
+    fireEvent.change(screen.getByLabelText(/rainfall total/i), { target: { value: '150' } });
+    expect(screen.getByRole('table', { name: /synthetic neighbourhood/i })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /clear comparison/i })).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: /clear comparison/i }));
+    expect(screen.queryByRole('region', { name: /current scenario vs saved baseline/i })).not.toBeInTheDocument();
+  });
 });

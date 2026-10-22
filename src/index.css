@@ -11,6 +11,17 @@
   color-scheme: dark;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -55,6 +66,16 @@ button {
   border: none;
 }
 
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid #83d5ff;
+  outline-offset: 3px;
+}
+
 img {
   max-width: 100%;
   display: block;
@@ -71,11 +92,17 @@ img {
 }
 
 .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
   padding: 18px 0 24px;
+  background: rgba(5, 14, 25, 0.94);
+  border-bottom: 1px solid rgba(151, 172, 219, 0.12);
+  backdrop-filter: blur(16px);
 }
 
 .brand-wrap {
@@ -949,7 +976,8 @@ section {
   padding: 24px;
   border: 1px solid rgba(151, 172, 219, 0.16);
   border-radius: 26px;
-  background: rgba(10, 18, 29, 0.9);
+  background: linear-gradient(155deg, rgba(15, 28, 43, 0.98), rgba(7, 16, 28, 0.98));
+  box-shadow: 0 26px 70px rgba(1, 8, 17, 0.32);
 }
 
 .simulator-intro {
@@ -1168,6 +1196,83 @@ section {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
   margin-bottom: 18px;
+}
+
+.comparison-panel {
+  margin-top: 18px;
+  padding: 20px;
+  border: 1px solid rgba(151, 172, 219, 0.16);
+  border-radius: 18px;
+  background: rgba(17, 29, 48, 0.62);
+}
+
+.comparison-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+
+.comparison-heading h4 {
+  margin: 4px 0;
+}
+
+.comparison-heading p,
+.comparison-disclosure {
+  margin: 0;
+  color: #9bb5d8;
+  font-size: 0.82rem;
+}
+
+.comparison-table-wrap {
+  overflow-x: auto;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+}
+
+.comparison-table th,
+.comparison-table td {
+  padding: 11px 12px;
+  border-bottom: 1px solid rgba(151, 172, 219, 0.12);
+}
+
+.comparison-table thead th {
+  color: #9bb5d8;
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+
+.comparison-table tbody th {
+  font-weight: 650;
+}
+
+.comparison-table tbody th span {
+  margin-left: 5px;
+  color: #8fa8ca;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.comparison-table tbody tr.selected {
+  background: rgba(83, 194, 190, 0.08);
+}
+
+.comparison-increase {
+  color: #ffb2a9;
+}
+
+.comparison-decrease {
+  color: #8debc3;
+}
+
+.comparison-disclosure {
+  margin-top: 12px;
 }
 
 .summary-card {
@@ -1666,6 +1771,7 @@ section {
   }
 
   .hero {
+    scroll-margin-top: 110px;
     padding-top: 24px;
   }
 
@@ -1687,6 +1793,16 @@ section {
 
   .simulator-intro {
     flex-direction: column;
+  }
+
+  .comparison-heading {
+    flex-direction: column;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: 9px 7px;
+    font-size: 0.78rem;
   }
 
   .scenario-controls {

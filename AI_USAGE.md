@@ -25,11 +25,13 @@ These are selected verbatim user-prompt excerpts available in the conversation h
 3. “All A, B, C, D”
 4. “Do that all”
 5. “So what left do and See acording to rule and reguletion if any other software can be use in that project like linux, docker, container, ros and all other all software all over world!”
+6. “In dashboard UI/UX is not ok and also why skip to content there, please upgrade the project and also UI/UX”
 
 ## Work areas accelerated with AI
 
 - Problem framing, user-facing narrative, and product workflow
 - React component and responsive interface implementation
+- Scenario-baseline comparison interaction and responsive dashboard refinements
 - Optional external weather-context integration, source attribution, and failure-state handling
 - Heuristic function and boundary-case tests
 - Submission docs, pitch narrative, and demo outline

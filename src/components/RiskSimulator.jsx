@@ -139,9 +139,17 @@ function downloadScenario(scenario, result, selectedWard, activeForecast) {
 function RiskSimulator() {
   const [scenario, setScenario] = useState(DEFAULT_SCENARIO);
   const [activeForecast, setActiveForecast] = useState(null);
+  const [comparisonBaseline, setComparisonBaseline] = useState(null);
   const forecastProfile = useMemo(
     () => activeForecast?.hours.map((hour) => hour.precipitationMm) ?? null,
     [activeForecast],
+  );
+  const baselineResult = useMemo(
+    () =>
+      comparisonBaseline
+        ? simulateCityScenario(comparisonBaseline.scenario, comparisonBaseline.forecastProfile)
+        : null,
+    [comparisonBaseline],
   );
   const result = useMemo(
     () => simulateCityScenario(scenario, forecastProfile),
@@ -171,6 +179,16 @@ function RiskSimulator() {
     }));
     setActiveForecast(forecast);
     setSelectedWardId('W-02');
+  }
+
+  function saveComparisonBaseline() {
+    setComparisonBaseline({
+      scenario: { ...scenario },
+      forecastProfile: forecastProfile ? [...forecastProfile] : null,
+      label: activeForecast
+        ? `Open-Meteo rainfall context · ${activeForecast.city.name}`
+        : 'Synthetic rainfall profile',
+    });
   }
 
   const maxRainfall = Math.max(1, ...result.rainfallTimeline.map((point) => point.rainfallMm));
@@ -204,6 +222,9 @@ function RiskSimulator() {
           onClick={() => downloadScenario(scenario, result, selectedWard, activeForecast)}
         >
           Download scenario data
+        </button>
+        <button className="preset-button" type="button" onClick={saveComparisonBaseline}>
+          {comparisonBaseline ? 'Update comparison baseline' : 'Save current as comparison baseline'}
         </button>
       </div>
 
@@ -347,6 +368,59 @@ function RiskSimulator() {
           </ul>
         </div>
       </section>
+
+      {baselineResult && (
+        <section className="comparison-panel" aria-labelledby="comparison-title">
+          <div className="comparison-heading">
+            <div>
+              <span className="result-label">Scenario comparison · illustrative index points</span>
+              <h4 id="comparison-title">Current scenario vs saved baseline</h4>
+              <p>Baseline: {comparisonBaseline.label}. Changes reflect only the assumptions in this demonstration model.</p>
+            </div>
+            <button
+              className="preset-button"
+              type="button"
+              onClick={() => setComparisonBaseline(null)}
+            >
+              Clear comparison
+            </button>
+          </div>
+          <div className="comparison-table-wrap">
+            <table className="comparison-table" aria-label="Synthetic neighbourhood scenario index comparison">
+              <thead>
+                <tr>
+                  <th scope="col">Synthetic neighbourhood</th>
+                  <th scope="col">Baseline</th>
+                  <th scope="col">Current</th>
+                  <th scope="col">Change</th>
+                </tr>
+              </thead>
+              <tbody>
+                {result.wards.map((ward) => {
+                  const baselineWard = baselineResult.wards.find((item) => item.id === ward.id);
+                  const change = ward.score - baselineWard.score;
+                  const changeLabel = change > 0 ? `+${change}` : `${change}`;
+
+                  return (
+                    <tr key={ward.id} className={ward.id === selectedWard.id ? 'selected' : ''}>
+                      <th scope="row">{ward.name} <span>{ward.id}</span></th>
+                      <td>{baselineWard.score}</td>
+                      <td>{ward.score}</td>
+                      <td className={change > 0 ? 'comparison-increase' : change < 0 ? 'comparison-decrease' : ''}>
+                        {changeLabel}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+          <p className="comparison-disclosure">
+            A score change is not a measured change in flood probability or safety. Both columns use the same uncalibrated,
+            fictional ward assumptions.
+          </p>
+        </section>
+      )}
 
       <details className="model-method">
         <summary>How this demonstration model works</summary>

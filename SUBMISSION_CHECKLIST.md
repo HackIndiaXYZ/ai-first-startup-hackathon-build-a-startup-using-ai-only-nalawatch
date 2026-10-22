@@ -9,7 +9,7 @@ Official page: https://hackindia.org/2026/ai-first-startup-hackathon-build-a-sta
 ## Prepared in this repository
 
 - [x] Public-repository code and project docs
-- [x] Interactive browser scenario simulator with synthetic neighbourhoods, transparent assumptions, sensitivity checks, and limitations
+- [x] Interactive browser scenario simulator with synthetic neighbourhoods, transparent assumptions, sensitivity checks, baseline comparison, and limitations
 - [x] Optional hourly precipitation forecast context with provider attribution, explicit user-triggered fetch, and clear separation from synthetic flood outputs
 - [x] Focused literature review with verified article metadata and an explicit distinction between research design implications and toy-model parameters
 - [x] Automated lint, unit tests, and production build
