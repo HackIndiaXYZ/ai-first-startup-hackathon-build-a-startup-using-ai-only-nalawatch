@@ -161,6 +161,41 @@ function downloadScenario(scenario, result, selectedWard, activeForecast, tablet
   URL.revokeObjectURL(objectUrl);
 }
 
+function downloadTabletopBrief(brief) {
+  const content = [
+    'NALAWATCH TABLETOP EXERCISE BRIEF',
+    'For discussion only · synthetic scenario · not a flood prediction or public warning',
+    '',
+    `Neighbourhood: ${brief.wardName} (${brief.wardId})`,
+    `Scenario hour: ${brief.hour}`,
+    `Scenario index: ${brief.scenarioIndex}/100 (${brief.level})`,
+    `Scenario rainfall: ${brief.rainfallMm} mm`,
+    `Simulated ponding proxy: ${brief.pondingMm} mm`,
+    `Rain context: ${brief.weatherContext}`,
+    '',
+    'SCENARIO ASSUMPTIONS',
+    `Rainfall total: ${brief.scenario.rainfallMm} mm`,
+    `Drain capacity available: ${brief.scenario.drainAvailability}%`,
+    `Estimated blockage: ${brief.scenario.blockage}%`,
+    `Ground saturation: ${brief.scenario.saturation}%`,
+    '',
+    'SELECTED DISCUSSION TASKS',
+    ...brief.actions.map((action) => `- ${action.title}: ${action.description}`),
+    '',
+    'BOUNDARIES',
+    'Neighbourhoods, drainage assumptions, scenario index, and ponding outputs are synthetic.',
+    'Verify conditions with local authorities and field teams. Do not use this exercise to issue alerts or direct emergency response.',
+  ].join('\n');
+  const objectUrl = URL.createObjectURL(new Blob([content], { type: 'text/plain;charset=utf-8' }));
+  const link = document.createElement('a');
+  link.href = objectUrl;
+  link.download = `nalawatch-tabletop-brief-${brief.wardId.toLowerCase()}.txt`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(objectUrl);
+}
+
 function RiskSimulator() {
   const {
     user,
@@ -808,6 +843,13 @@ function RiskSimulator() {
             <ul>
               {tabletopBrief.actions.map((action) => <li key={action.id}>{action.title}</li>)}
             </ul>
+            <button
+              className="export-button tabletop-download"
+              type="button"
+              onClick={() => downloadTabletopBrief(tabletopBrief)}
+            >
+              Download discussion brief
+            </button>
             <small>For discussion only. Neighbourhoods, index, and ponding are synthetic; this is not a flood prediction or public warning.</small>
           </div>
         )}

@@ -111,6 +111,7 @@ describe('App', () => {
     expect(brief).toHaveTextContent(/scenario index \d+\/100/i);
     expect(brief).toHaveTextContent(/review drain inspection priorities/i);
     expect(brief).toHaveTextContent(/not a flood prediction or public warning/i);
+    expect(screen.getByRole('button', { name: /download discussion brief/i })).toBeInTheDocument();
   });
 
   it('starts a guided scenario and preselects useful tabletop tasks', () => {

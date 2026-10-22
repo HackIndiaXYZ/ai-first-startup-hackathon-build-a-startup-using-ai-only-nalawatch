@@ -16,7 +16,7 @@ Target runtime: about 3 minutes 45 seconds. Record the deployed app after deploy
 2. Click **Start guided exercise**. Point out that it loads a synthetic cloudburst scenario, selects a sample neighbourhood and two discussion tasks, and starts the timeline.
 3. Pause or scrub the timeline. Show the selected hour's scenario rainfall and synthetic ponding readout; explain that neither is a measured event or forecast.
 4. On the neighbourhood board, sort by scenario index and select a synthetic neighbourhood. Point out the fictional-data disclosure and explain that the number is not a probability.
-5. Select additional tasks in **Build a preparedness tabletop brief** and generate the brief. Point out that it snapshots the chosen scenario, hour, and neighbourhood but dispatches nothing.
+5. Select additional tasks in **Build a preparedness tabletop brief** and generate the brief. Point out that it snapshots the chosen scenario, hour, and neighbourhood but dispatches nothing; download the readable discussion handout.
 6. In the Mumbai pilot lens, load the hourly rainfall forecast. Show its Open-Meteo source, retrieval time, and three-hour total. Explain that this is city-level weather context only.
 7. Save a comparison baseline, apply **Drain maintenance**, and inspect the change table. Explain that both scenarios use fictional drainage and exposure assumptions.
 8. Show the pilot readiness cards: rainfall context is available; ward/drain records require permission and a partner; independent shadow-mode event validation is still required.

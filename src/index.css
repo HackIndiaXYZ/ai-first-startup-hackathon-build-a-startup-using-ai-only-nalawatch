@@ -2217,6 +2217,11 @@ section {
   line-height: 1.5;
 }
 
+.tabletop-download {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
 .model-method {
   margin-top: 16px;
   padding: 13px 15px;
@@ -2744,6 +2749,12 @@ section {
 
   .tabletop-brief > small {
     grid-column: auto;
+  }
+
+  .tabletop-download {
+    grid-column: auto;
+    justify-self: stretch;
+    width: 100%;
   }
 
   .ward-detail-heading {
